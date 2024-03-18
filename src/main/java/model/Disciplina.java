@@ -19,6 +19,5 @@ public class Disciplina
 	private int codigoCurso;
 	private String nome;
 	private int qntdHoraSemanais;
-	private int idProfessor;
 	private List<Conteudo> conteudo;
 }
