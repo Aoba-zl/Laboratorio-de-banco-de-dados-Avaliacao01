@@ -3,6 +3,7 @@
 ## Engenharia de Software:
 - [ ] Requisitos
 - [ ] Caso de uso
+- [ ] Diagrama de Classe
 - [ ] Diagrama de banco de dados
 - [ ] Protótipo(Se necessário)
 
