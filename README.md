@@ -8,6 +8,13 @@
 
 ## Programação:
 - [ ] Banco de Dados
+- procedure
+    - [x] CPF
+    - [ ] Horário
+    - [ ] Idade igual ou superior 16
+    - [ ] Data limite de graduação
+    - [ ] RA ano ingresso + semestre ingresso + 4 numero aleatorio
+    - [ ] Matricula
 - [ ] Model
 - [ ] Controller
 - [ ] ServLet
