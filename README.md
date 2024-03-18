@@ -1,14 +1,14 @@
 # Laboratorio de banco de dados - Avaliacao 1
 
 ## Engenharia de Software:
-- [ ] Requisitos
-- [ ] Caso de uso
-- [ ] Diagrama de Classe
-- [ ] Diagrama de banco de dados
+- [x] Requisitos
+- [x] Caso de uso
+- [ ] Diagrama de Classe (Se necessário)
+- [x] Diagrama de banco de dados
 - [ ] Protótipo(Se necessário)
 
 ## Programação:
-- [ ] Banco de Dados
+- [x] Banco de Dados
 - procedure
     - [x] CPF
     - [ ] Horário
@@ -16,7 +16,7 @@
     - [ ] Data limite de graduação
     - [ ] RA ano ingresso + semestre ingresso + 4 numero aleatorio
     - [ ] Matricula
-- [ ] Model
+- [x] Model
 - [ ] Controller
 - [ ] ServLet
 - [ ] Persistence
