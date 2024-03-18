@@ -62,34 +62,14 @@ CREATE TABLE matricula
 	FOREIGN KEY (codigo_curso) REFERENCES curso (codigo)
 )
 GO
-CREATE TABLE funcionario
-(
-	id								INT				NOT NULL,
-	nome							VARCHAR(100)	NOT NULL,
-	cpf								CHAR(11)		NOT NULL,
-	cargo							VARCHAR(50)		NOT NULL
-	PRIMARY KEY (id)
-)
-GO
-CREATE TABLE professor
-(
-	id_funcionario					INT				NOT NULL,
-	titulacao						VARCHAR(30)		NOT NULL,
-	especialidade					VARCHAR(30)		NOT NULL
-	PRIMARY KEY (id_funcionario)
-	FOREIGN KEY (id_funcionario) REFERENCES funcionario (id)
-)
-GO
 CREATE TABLE disciplina
 (
 	codigo							INT				NOT NULL,
 	codigo_curso					INT				NOT NULL,
 	nome							VARCHAR(50)		NOT NULL,
-	qntd_hora_semanais				INT				NOT NULL,
-	id_funcionario_professor		INT				NOT NULL
+	qntd_hora_semanais				INT				NOT NULL
 	PRIMARY KEY (codigo)
-	FOREIGN KEY (codigo_curso) REFERENCES curso (codigo),
-	FOREIGN KEY (id_funcionario_professor) REFERENCES professor (id_funcionario)
+	FOREIGN KEY (codigo_curso) REFERENCES curso (codigo)
 )
 GO
 CREATE TABLE conteudo
