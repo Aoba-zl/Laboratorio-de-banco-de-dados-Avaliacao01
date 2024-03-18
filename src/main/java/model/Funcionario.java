@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+//temporário até a confirmação do professor
+
 @Getter
 @Setter
 @ToString
