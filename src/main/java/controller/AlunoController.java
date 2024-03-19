@@ -1,5 +1,6 @@
 package controller;
 
-public class AlunoController {
+public class AlunoController 
+{
 
 }
