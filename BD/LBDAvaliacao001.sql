@@ -11,9 +11,9 @@ CREATE TABLE aluno
 	ra								CHAR(9) 		NOT NULL,
 	cpf								CHAR(11) 		NOT NULL UNIQUE,
 	nome							VARCHAR(100) 	NOT NULL,
-	nome_social						VARCHAR(100)	NOT NULL,
+	nome_social						VARCHAR(100),
 	dt_nascimento					DATE			NOT NULL,
-	email_pessoal					VARCHAR(100)	NOT NULL UNIQUE,
+	email_pessoal					VARCHAR(100) 	UNIQUE,
 	email_corporativo				VARCHAR(100)	NOT NULL UNIQUE,
 	dt_conclusao_seg_grau			DATE			NOT NULL,
 	instituicao_conclusao_seg_grau	VARCHAR(100)	NOT NULL
