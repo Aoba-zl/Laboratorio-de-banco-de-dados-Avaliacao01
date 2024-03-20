@@ -91,7 +91,7 @@
 								<label for="floatingInput" class="font-text">Email Corporativo</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 						</div>
@@ -149,7 +149,7 @@
 							<th class="col">Email Pessoal</th>
 							<th class="col">Email Corporativo</th>
 							<th class="col">Telefone</th>
-							<th class="col">Inst. de Concl. de Segundo grau</th>
+							<th class="col" style="text-wrap: nowrap; max-width: 100px; overflow-x: hidden; text-overflow: ellipsis" title="Inst. de Concl. de Segundo grau">Inst. de Concl. de Segundo grau</th>
 							<th class="col">Data de conclusão</th>
 							<th class="col">Posição</th>
 							<th class="col">Pontuação</th>
