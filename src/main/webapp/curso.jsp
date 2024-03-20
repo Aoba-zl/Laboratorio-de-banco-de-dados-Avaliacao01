@@ -51,7 +51,7 @@
 				</c:if>
 			</div>
 			<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
-				<table class="table table-striped">
+				<table class="table table-striped d-flex justify-content-center">
 					<thead>
 						<tr>
 							<th class="col">Nome</th>
