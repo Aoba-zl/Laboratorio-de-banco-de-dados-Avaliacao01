@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="./css/style.css">
 
-<title>Cliente</title>
+<title>Disciplina</title>
 </head>
 <body>
 <div class="bg-black custom">
