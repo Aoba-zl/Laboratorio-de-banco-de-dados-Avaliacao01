@@ -18,9 +18,9 @@ public class Curso
 {
 	private int codigo;
 	private String nome;
-	private LocalTime carga_horaria;
+	private LocalTime cargaHoraria;
 	private String sigla;
-	private float ult_nota_participacao_enade;
+	private float ultNotaParticipacaoEnade;
 	private List<Matricula> matricula;
 	private List<Disciplina> disciplina;
 }
