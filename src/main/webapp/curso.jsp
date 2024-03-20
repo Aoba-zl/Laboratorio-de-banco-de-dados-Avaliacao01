@@ -21,62 +21,62 @@
 <title>Cliente</title>
 </head>
 <body>
-<div class="bg-black custom">
-	<div class="container bg-white scroll" id="nav-container">
-		<nav class="navbar navbar-expand">
-			<div class="container-fluid">
-				<div class="m-auto">
-					<div class="row">
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./'">home</button>
-						</div>
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./aluno'">Pagina Aluno</button>
-						</div>
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./curso'">Ver Cursos</button>
+	<div class="bg-black custom">
+		<div class="container bg-white scroll" id="nav-container">
+			<nav class="navbar navbar-expand">
+				<div class="container-fluid">
+					<div class="m-auto">
+						<div class="row">
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./'">home</button>
+							</div>
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./aluno'">Pagina Aluno</button>
+							</div>
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./curso'">Ver Cursos</button>
+							</div>
 						</div>
 					</div>
 				</div>
+			</nav>
+			<div>
+				<c:if test="${not empty erro}">
+					<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
+				</c:if>
 			</div>
-		</nav>
-		<div>
-			<c:if test="${not empty erro}">
-				<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
-			</c:if>
-		</div>
-		<div>
-			<c:if test="${not empty saida}">
-				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
-			</c:if>
-		</div>
-		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th class="col">Cpf</th>
-						<th class="col">Nome</th>
-						<th class="col">Email</th>
-						<th class="col">Limite de Crédito</th>
-						<th class="col">Data de nascimento</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:if test="${not empty clientes}">
-						<c:forEach var="cl" items="${clientes}">
-							<tr>
-								<th scope="row"><c:out value="${cl.cpf}"/></th>
-								<td><c:out value="${cl.nome}"/></td>
-								<td><c:out value="${cl.email}"/></td>
-								<td><c:out value="${cl.limCredito}"/></td>
-								<td><c:out value="${cl.dtNascFormat}"/></td>
-							</tr>
-						</c:forEach>
-					</c:if>
-				</tbody>
-			</table>
+			<div>
+				<c:if test="${not empty saida}">
+					<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
+				</c:if>
+			</div>
+			<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="col">Cpf</th>
+							<th class="col">Nome</th>
+							<th class="col">Email</th>
+							<th class="col">Limite de Crédito</th>
+							<th class="col">Data de nascimento</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${not empty clientes}">
+							<c:forEach var="cl" items="${clientes}">
+								<tr>
+									<th scope="row"><c:out value="${cl.cpf}"/></th>
+									<td><c:out value="${cl.nome}"/></td>
+									<td><c:out value="${cl.email}"/></td>
+									<td><c:out value="${cl.limCredito}"/></td>
+									<td><c:out value="${cl.dtNascFormat}"/></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
 </body>
 </html>
