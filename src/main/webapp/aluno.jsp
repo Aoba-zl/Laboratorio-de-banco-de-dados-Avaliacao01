@@ -54,28 +54,71 @@
 					</div>
 				</div>
 			</nav>
-		<main class="rounded-4 border border-primary form-container m-auto mb-3">
-			<form action="cliente" method="post">
-				<div class="form-floating d-flex mb-3">
-					<input type=text class="form-control input-height" id="floatingInput" placeholder="Cpf" name="cpf" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${cliente.cpf}"></c:out>'>
-					<label for="floatingInput" class="font-text">CPF</label>
-					<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
-				</div>
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control input-height" id="floatingInput" placeholder="Nome" name="nome" value='<c:out value="${cliente.nome}"></c:out>'>
-					<label for="floatingInput" class="font-text">Nome</label>
-				</div>
-				<div class="form-floating mb-3 input-height">
-					<input type="text" class="form-control input-height" id="floatingInput" placeholder="Email" name="email" value='<c:out value="${cliente.email}"></c:out>'>
-					<label for="floatingInput" class="font-text">Email</label>
-				</div>
-				<div class="form-floating mb-3 input-height">
-					<input type="text" class="form-control input-height" id="floatingInput" placeholder="Limite de crédito" name="limCredito" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1')" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" value='<c:out value="${cliente.limCredito}"></c:out>'>
-					<label for="floatingInput" class="font-text">Limite de crédito</label>
-				</div>
-				<div class="form-floating mb-3 input-height">
-					<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${cliente.dtNasc}"></c:out>'>
-					<label for="floatingInput" class="font-text">Data de nascimento</label>
+		<main class="rounded-4 border border-primary form-container-aluno m-auto mb-3">
+			<form action="aluno" method="post">
+				<div class="row align-item-center justify-content-between">
+					<div class="form-container-input col">
+						<div class="mb-3">
+							<h5 class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">Informações do Aluno</h5>
+						</div>
+						<div class="form-floating d-flex mb-3">
+							<input type=text class="form-control input-height" id="floatingInput" placeholder="Ra" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.ra}"></c:out>'>
+							<label for="floatingInput" class="font-text">RA</label>
+							<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
+						</div>
+						<div class="form-floating d-flex mb-3">
+							<input type=text class="form-control input-height" id="floatingInput" placeholder="Cpf" name="cpf" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.cpf}"></c:out>'>
+							<label for="floatingInput" class="font-text">CPF</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Nome" name="nome" value='<c:out value="${aluno.nome}"></c:out>'>
+							<label for="floatingInput" class="font-text">Nome</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Nome Social" name="nomeSocial" value='<c:out value="${aluno.nomeSocial}"></c:out>'>
+							<label for="floatingInput" class="font-text">Nome Social</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${aluno.dtNascimento}"></c:out>'>
+							<label for="floatingInput" class="font-text">Data de nascimento</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Email Pessoal" name="emailPessoal" value='<c:out value="${aluno.emailPessoal}"></c:out>'>
+							<label for="floatingInput" class="font-text">Email Pessoal</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Email Corporativo" name="emailCorporativo" value='<c:out value="${aluno.emailCorporativo}"></c:out>'>
+							<label for="floatingInput" class="font-text">Email Corporativo</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" value='<c:out value="${aluno.telefone}"></c:out>'>
+							<label for="floatingInput" class="font-text">Telefone</label>
+						</div>
+					</div>
+					<div class="form-container-input col">
+						<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
+							<h5>Instituição de Ensino</h5>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Instituição de Conclusão do Segundo Grau" name="instituicaoConclusaoSegGrau" value='<c:out value="${aluno.instituicaoConclusaoSegGrau}"></c:out>'>
+							<label for="floatingInput" class="font-text">Instituição de Conclusão do Segundo Grau</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusao" value='<c:out value="${aluno.dtConclusao}"></c:out>'>
+							<label for="floatingInput" class="font-text">Data de Conclusão</label>
+						</div>
+						<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
+							<h5>Vestibular</h5>
+						</div>
+						<div class="form-floating d-flex mb-3">
+							<input type=text class="form-control input-height" id="floatingInput" placeholder="Posição" name="posicao" maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.vestibular.posicao}"></c:out>'>
+							<label for="floatingInput" class="font-text">Posição</label>
+						</div>
+						<div class="form-floating mb-3 input-height">
+							<input type="text" class="form-control input-height" id="floatingInput" placeholder="Pontuação" name="pontuacao" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1')" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" value='<c:out value="${aluno.vestibular.pontuacao}"></c:out>'>
+							<label for="floatingInput" class="font-text">Pontução</label>
+						</div>
+					</div>
 				</div>
 				<div class="d-flex">
 					<button class="btn btn-success me-3" name="botao" value="Cadastrar">Cadastrar</button>
@@ -94,26 +137,40 @@
 				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 			</c:if>
 		</div>
-		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
+		<div class="form-container m-auto border border-primary rounded-4 d-flex justify-content-center" style="max-width: 1300px;">
 			<table class="table table-striped">
 				<thead>
-					<tr>
-						<th class="col">Cpf</th>
+					<tr class="text-center">
+						<th class="col">RA</th>
+						<th class="col">CPF</th>
 						<th class="col">Nome</th>
-						<th class="col">Email</th>
-						<th class="col">Limite de Crédito</th>
+						<th class="col">Nome Social</th>
 						<th class="col">Data de nascimento</th>
+						<th class="col">Email Pessoal</th>
+						<th class="col">Email Corporativo</th>
+						<th class="col">Telefone</th>
+						<th class="col">Inst. de Concl. de Segundo grau</th>
+						<th class="col">Data de conclusão</th>
+						<th class="col">Posição</th>
+						<th class="col">Pontuação</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${not empty clientes}">
-						<c:forEach var="cl" items="${clientes}">
+					<c:if test="${not empty alunos}">
+						<c:forEach var="a" items="${alunos}">
 							<tr>
-								<th scope="row"><c:out value="${cl.cpf}"/></th>
-								<td><c:out value="${cl.nome}"/></td>
-								<td><c:out value="${cl.email}"/></td>
-								<td><c:out value="${cl.limCredito}"/></td>
-								<td><c:out value="${cl.dtNascFormat}"/></td>
+								<th scope="row"><c:out value="${a.ra}"/></th>
+								<th><c:out value="${a.cpf}"/></th>
+								<td><c:out value="${a.nome}"/></td>
+								<td><c:out value="${a.nomeSocial}"/></td>
+								<td><c:out value="${a.dtNascimento}"/></td>
+								<td><c:out value="${a.emailPessoal}"/></td>
+								<td><c:out value="${a.emailCorporativo}"/></td>
+								<td><c:out value="${a.telefone}"/></td>
+								<td><c:out value="${a.instituicaoConclusaoSegGrau}"/></td>
+								<td><c:out value="${a.dtConclusao}"/></td>
+								<td><c:out value="${a.vestibular.posicao}"/></td>
+								<td><c:out value="${a.vestibular.pontuacao}"/></td>
 							</tr>
 						</c:forEach>
 					</c:if>

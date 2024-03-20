@@ -34,10 +34,21 @@
 	border: 2px solid #555555;
 }
 
-.form-container 
+.form-container-aluno
+{
+	max-width: 1000px;
+	padding: 1rem;
+}
+
+.form-container
 {
 	max-width: 490px;
 	padding: 1rem;
+}
+
+.form-container-input 
+{
+	max-width: 490px;
 }
 
 .input-height 
