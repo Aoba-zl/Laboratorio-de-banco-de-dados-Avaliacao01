@@ -54,22 +54,21 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th class="col">Cpf</th>
 							<th class="col">Nome</th>
-							<th class="col">Email</th>
-							<th class="col">Limite de Crédito</th>
-							<th class="col">Data de nascimento</th>
+							<th class="col">Carga Horaria</th>
+							<th class="col">Sigla</th>
+							<th class="col">Última nota de particição do ENADE</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${not empty clientes}">
-							<c:forEach var="cl" items="${clientes}">
+						<c:if test="${not empty cursos}">
+							<c:forEach var="cr" items="${cursos}">
 								<tr>
-									<th scope="row"><c:out value="${cl.cpf}"/></th>
-									<td><c:out value="${cl.nome}"/></td>
-									<td><c:out value="${cl.email}"/></td>
-									<td><c:out value="${cl.limCredito}"/></td>
-									<td><c:out value="${cl.dtNascFormat}"/></td>
+									<th scope="row"><c:out value="${cr.cpf}"/></th>
+									<td><c:out value="${cr.nome}"/></td>
+									<td><c:out value="${cr.cargaHoraria}"/></td>
+									<td><c:out value="${cr.sigla}"/></td>
+									<td><c:out value="${cr.ultNotaParticipacaoEnade}"/></td>
 								</tr>
 							</c:forEach>
 						</c:if>
