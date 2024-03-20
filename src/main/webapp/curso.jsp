@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="./css/style.css">
 
-<title>Cliente</title>
+<title>Curso</title>
 </head>
 <body>
 	<div class="bg-black custom">
