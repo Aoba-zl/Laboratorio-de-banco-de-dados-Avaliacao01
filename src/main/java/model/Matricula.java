@@ -19,7 +19,7 @@ public class Matricula
 	private String raAluno;
 	private int codigoCurso;
 	private String semestre;
-	private String semestre_ingresso;
+	private String semestreIngresso;
 	private LocalDate anoLimiteGraduacao;
 	private LocalDate anoIngresso;
 }
