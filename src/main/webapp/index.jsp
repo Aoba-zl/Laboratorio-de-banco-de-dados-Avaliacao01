@@ -18,26 +18,26 @@
 <title>Avaliação LBD</title>
 </head>
 <body>
-<div class="bg-black custom">
-	<div class="container bg-white scroll" id="nav-container">
-		<nav class="navbar navbar-expand">
-			<div class="container-fluid">
-				<div class="m-auto">
-					<div class="row">
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./'">home</button>
-						</div>
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./aluno'">Pagina Aluno</button>
-						</div>
-						<div class="col-auto p-0 text-center" style="width: 130px;">
-							<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./curso'">Ver Cursos</button>
+	<div class="bg-black custom">
+		<div class="container bg-white scroll" id="nav-container">
+			<nav class="navbar navbar-expand">
+				<div class="container-fluid">
+					<div class="m-auto">
+						<div class="row">
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./'">home</button>
+							</div>
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./aluno'">Pagina Aluno</button>
+							</div>
+							<div class="col-auto p-0 text-center" style="width: 130px;">
+								<button class="btn btn-outline-primary" style="width: 120px" OnClick="window.location.href='./curso'">Ver Cursos</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
+		</div>
 	</div>
-</div>
 </body>
 </html>
