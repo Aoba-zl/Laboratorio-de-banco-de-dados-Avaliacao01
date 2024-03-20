@@ -19,17 +19,17 @@
     - [ ] Matricula (David)
 - [x] Model
 - Controller
-    - [ ] AlunoController
-    - [ ] DisciplinaController
-    - [ ] CursoController
+    - [ ] AlunoController (David)
+    - [ ] DisciplinaController (Matheus)
+    - [ ] CursoController (Matheus)
 - Servlet
-    - [ ] AlunoServlet
-    - [ ] DisciplinaServlet
-    - [ ] CursoServlet
+    - [ ] AlunoServlet (David)
+    - [ ] DisciplinaServlet (Matheus)
+    - [ ] CursoServlet (Matheus)
 - Persistence
-    - [ ] AlunoDao (Crud completo)
-    - [ ] DisciplinaDao (consulta e listagem)
-    - [ ] CursoDao (consulta e listagem)
+    - [ ] AlunoDao (Crud completo) (David)
+    - [ ] DisciplinaDao (consulta e listagem) (Matheus)
+    - [ ] CursoDao (consulta e listagem) (Matheus)
 - WebHtml
     - [ ] Index
     - [ ] Aluno
