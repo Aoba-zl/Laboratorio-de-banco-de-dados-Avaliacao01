@@ -57,8 +57,8 @@
 		<main class="rounded-4 border border-primary form-container m-auto mb-3">
 			<form action="cliente" method="post">
 				<div class="form-floating d-flex mb-3">
-					<input type=text class="form-control input-height" id="floatingInput" placeholder="Cpf" name="cpf" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${cliente.cpf}"></c:out>'>
-					<label for="floatingInput" class="font-text">CPF</label>
+					<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.ra}"></c:out>'>
+					<label for="floatingInput" class="font-text">RA</label>
 					<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
 				</div>
 			</form>
@@ -73,26 +73,20 @@
 				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 			</c:if>
 		</div>
-		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
-			<table class="table table-striped">
+		<div class="form-container m-auto border border-primary rounded-4">
+			<table class="table table-striped d-flex justify-content-center">
 				<thead>
 					<tr>
-						<th class="col">Cpf</th>
 						<th class="col">Nome</th>
-						<th class="col">Email</th>
-						<th class="col">Limite de Crédito</th>
-						<th class="col">Data de nascimento</th>
+						<th class="col">Quantidade de Horas Semanais</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${not empty clientes}">
-						<c:forEach var="cl" items="${clientes}">
+					<c:if test="${not empty disciplinas}">
+						<c:forEach var="d" items="${disciplinas}">
 							<tr>
-								<th scope="row"><c:out value="${cl.cpf}"/></th>
-								<td><c:out value="${cl.nome}"/></td>
-								<td><c:out value="${cl.email}"/></td>
-								<td><c:out value="${cl.limCredito}"/></td>
-								<td><c:out value="${cl.dtNascFormat}"/></td>
+								<th scope="row"><c:out value="${d.nome}"/></th>
+								<td><c:out value="${d.qntdHorasSemanais}"/></td>
 							</tr>
 						</c:forEach>
 					</c:if>

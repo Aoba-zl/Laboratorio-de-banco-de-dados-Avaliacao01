@@ -137,8 +137,8 @@
 				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 			</c:if>
 		</div>
-		<div class="form-container m-auto border border-primary rounded-4 d-flex justify-content-center" style="max-width: 1300px;">
-			<table class="table table-striped">
+		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 1300px;">
+			<table class="table table-striped d-flex justify-content-center">
 				<thead>
 					<tr class="text-center">
 						<th class="col">RA</th>
