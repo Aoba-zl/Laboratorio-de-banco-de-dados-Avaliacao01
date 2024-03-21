@@ -64,7 +64,6 @@ public class AlunoServlet extends HttpServlet
 			aluno.setRa(ra);
 		}
 		if (cmd.contains("Cadastrar")) {
-			aluno.setRa(ra);
 			aluno.setCpf(cpf);
 			aluno.setNome(nome);
 			aluno.setNomeSocial(nomeSocial);
@@ -99,6 +98,12 @@ public class AlunoServlet extends HttpServlet
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
+		}finally {
+			request.setAttribute("saida", saida);
+			request.setAttribute("erro", erro);
+			request.setAttribute("aluno",aluno);
+			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
+			rd.forward(request, response);
 		}
 	}
 	private LocalDate toLocalDate (String data) {
