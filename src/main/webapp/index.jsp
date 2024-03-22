@@ -37,7 +37,7 @@
 					</div>
 				</div>
 			</nav>
-			<div class="container border border-primary rounded-4 mb-4 mt-4" style="max-width: 1000px; padding: 0.6rem;">
+			<div class="container border border-3 border-primary rounded-4 mb-4 mt-4" style="max-width: 1000px; padding: 0.6rem;">
 				<h2 class="text-center">Descrição Geral</h2>
 				<p>O AGIS é um sistema acadêmico desenvolvido para atender às necessidades da Faculdade X. Ele oferece diversas funcionalidades para alunos, professores e funcionários da secretaria acadêmica.</p>
 				<h2 class="text-center">Funcionalidades Principais</h2>
