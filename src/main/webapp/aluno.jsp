@@ -16,6 +16,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<script>
+</script>
+
 <link rel="stylesheet" href="./css/style.css">
 
 <title>Aluno</title>
@@ -66,7 +69,7 @@
 								<label for="floatingInput" class="font-text">RA</label>
 								<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
 							</div>
-							<div class="form-floating d-flex mb-3">
+							<div class="form-floating mb-3">
 								<input type=text class="form-control input-height" id="floatingInput" placeholder="Cpf" name="cpf" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.cpf}"></c:out>'>
 								<label for="floatingInput" class="font-text">CPF</label>
 							</div>
@@ -90,7 +93,15 @@
 								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Email Corporativo" name="emailCorporativo" value='<c:out value="${aluno.emailCorporativo}"></c:out>'>
 								<label for="floatingInput" class="font-text">Email Corporativo</label>
 							</div>
-							<div class="form-floating mb-3 input-height">
+							<div class="form-floating mb-3 input-height d-flex">
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<label for="floatingInput" class="font-text">Telefone</label>
+							</div>
+							<div class="form-floating mb-3 input-height d-flex">
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<label for="floatingInput" class="font-text">Telefone</label>
+							</div>
+							<div class="form-floating mb-3 input-height d-flex">
 								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
@@ -117,6 +128,20 @@
 							<div class="form-floating mb-3 input-height">
 								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Pontuação" name="pontuacao" oninput="this.value = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1')" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" value='<c:out value="${aluno.vestibular.pontuacao}"></c:out>'>
 								<label for="floatingInput" class="font-text">Pontução</label>
+							</div>
+							<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
+								<h5>Curso</h5>
+							</div>
+							<div class="mb-3 input-height">
+								<select class="form-select" size="9" style="max-height: 208px;">
+									<option disabled selected>Selecione um curso</option>
+									<option value="1">test</option>
+									<option value="2">test2</option>
+									<option value="3">test3</option>
+									<option value="4">test4</option>
+									<option value="5">test5</option>
+									<option value="6">test6</option>
+								</select>
 							</div>
 						</div>
 					</div>
