@@ -1,4 +1,4 @@
-USE LBDExerc006
+USE matricula
 
 DROP PROCEDURE sp_verifica_cpf
 
