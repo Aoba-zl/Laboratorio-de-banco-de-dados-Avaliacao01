@@ -13,9 +13,9 @@
     - [x] CPF (Matheus)
     - [ ] Horário (Matheus)
     - [x] Idade igual ou superior 16
-    - [ ] Data limite de graduação
+    - [x] Data limite de graduação
     - [x] RA ano ingresso + semestre ingresso + 4 numero aleatorio (David)
-    - [ ] IUD Aluno (Matheus)
+    - [x] IUD Aluno (Matheus)
     - [x] Matricula (David)
 - [x] Model
 - Controller
