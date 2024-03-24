@@ -55,9 +55,9 @@
 				</div>
 			</nav>
 		<main class="rounded-4 border border-primary form-container m-auto mb-3">
-			<form action="cliente" method="post">
+			<form action="disciplina" method="post">
 				<div class="form-floating d-flex mb-3">
-					<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.ra}"></c:out>'>
+					<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 					<label for="floatingInput" class="font-text">RA</label>
 					<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
 				</div>
@@ -74,7 +74,7 @@
 			</c:if>
 		</div>
 		<div class="form-container m-auto border border-primary rounded-4">
-			<table class="table table-striped d-flex justify-content-center">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th class="col">Nome</th>
@@ -86,7 +86,7 @@
 						<c:forEach var="d" items="${disciplinas}">
 							<tr>
 								<th scope="row"><c:out value="${d.nome}"/></th>
-								<td><c:out value="${d.qntdHorasSemanais}"/></td>
+								<td><c:out value="${d.qntdHoraSemanais}"/></td>
 							</tr>
 						</c:forEach>
 					</c:if>
