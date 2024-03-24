@@ -51,7 +51,7 @@
 				</c:if>
 			</div>
 			<div class="form-container m-auto border border-primary rounded-4" style="max-width: 650px;">
-				<table class="table table-striped d-flex justify-content-center">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th class="col">Nome</th>
@@ -64,8 +64,7 @@
 						<c:if test="${not empty cursos}">
 							<c:forEach var="cr" items="${cursos}">
 								<tr>
-									<th scope="row"><c:out value="${cr.cpf}"/></th>
-									<td><c:out value="${cr.nome}"/></td>
+									<th scope="row"><c:out value="${cr.nome}"/></th>
 									<td><c:out value="${cr.cargaHoraria}"/></td>
 									<td><c:out value="${cr.sigla}"/></td>
 									<td><c:out value="${cr.ultNotaParticipacaoEnade}"/></td>

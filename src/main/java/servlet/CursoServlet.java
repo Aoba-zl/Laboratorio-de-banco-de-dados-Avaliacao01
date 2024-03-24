@@ -6,7 +6,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Curso;
+import model.Disciplina;
+
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import controller.CursoController;
+import controller.DisciplinaController;
 
 @WebServlet("/curso")
 public class CursoServlet extends HttpServlet {
@@ -14,8 +23,22 @@ public class CursoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		RequestDispatcher rd = request.getRequestDispatcher("curso.jsp");
-		rd.forward(request, response);
+		List<Curso> cursos = new ArrayList<>();
+		CursoController cControl = new CursoController();
+		String erro = "";
+		
+		try {			
+			cursos = cControl.listar();
+		} catch(SQLException | ClassNotFoundException e) {
+			erro = e.getMessage();
+		} finally {
+			
+			request.setAttribute("erro", erro);
+			request.setAttribute("cursos", cursos);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("curso.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
