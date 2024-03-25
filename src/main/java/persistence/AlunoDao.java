@@ -80,7 +80,10 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 	}
 
 	private java.sql.Date toSQLDate(LocalDate data){
-		java.sql.Date sqlDate = java.sql.Date.valueOf(data);
-		return sqlDate;
+		if (data != null) {
+			java.sql.Date sqlDate = java.sql.Date.valueOf(data);
+			return sqlDate;
+		}
+		return null;
 	}
 }
