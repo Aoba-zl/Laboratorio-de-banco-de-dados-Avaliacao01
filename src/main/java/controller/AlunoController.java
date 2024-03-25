@@ -30,8 +30,11 @@ public class AlunoController
 		aluno.setVestibular(v);
 		aDao.iud("D", aluno,curso);
 	}
-	public void buscar(Aluno aluno) throws SQLException, ClassNotFoundException {
-		
+	public Aluno buscar(Aluno aluno) throws SQLException, ClassNotFoundException {
+		GenericDao gDao = new GenericDao();
+		AlunoDao aDao = new AlunoDao(gDao);
+		aluno = aDao.consultar(aluno);
+		return aluno;
 	}
 	public void listar() throws SQLException, ClassNotFoundException {
 		

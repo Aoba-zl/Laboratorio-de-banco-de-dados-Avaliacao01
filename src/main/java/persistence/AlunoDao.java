@@ -2,13 +2,20 @@ package persistence;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import model.Aluno;
 import model.Curso;
+import model.Telefone;
+import model.Vestibular;
 
 public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 {
@@ -22,7 +29,55 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 	@Override
 	public Aluno consultar(Aluno a) throws SQLException, ClassNotFoundException 
 	{
-		return null;
+		Connection connection = gDao.getConnection();
+		String querySql = """ 
+		SELECT 
+		a.ra, 
+		a.cpf, 
+		a.nome, 
+		a.nome_social, 
+		a.dt_nascimento, 
+		a.email_pessoal, 
+		a.email_corporativo, 
+		a.dt_conclusao_seg_grau, 
+		a.instituicao_conclusao_seg_grau,
+		t.numero,
+		v.pontuacao,
+		v.posicao 
+		FROM aluno a, telefone t, vestibular v
+		WHERE a.ra = t.ra_aluno AND a.ra = v.ra_aluno AND a.ra = ?
+		ORDER BY t.id
+				""";
+		PreparedStatement preparedStatement = connection.prepareStatement(querySql);
+		preparedStatement.setString(1, a.getRa());
+		ResultSet result = preparedStatement.executeQuery();
+
+		if (result.next()) {
+			a.setCpf(result.getString("cpf"));
+			a.setNome(result.getString("nome"));
+			a.setNomeSocial(result.getString("nome_social"));
+			a.setDtNascimento(toLocalDate(result.getDate("dt_nascimento")));
+			a.setEmailPessoal(result.getString("email_pessoal"));
+			a.setEmailCorporativo(result.getString("email_corporativo"));
+			a.setDtConclusaoSegGrau(toLocalDate(result.getDate("dt_conclusao_seg_grau")));
+			a.setInstuicaoConclusaoSegGrau(result.getString("instituicao_conclusao_seg_grau"));
+			Vestibular v = new Vestibular();
+			v.setPontuacao(result.getFloat("pontuacao"));
+			v.setPosicao(result.getInt("posicao"));
+			a.setVestibular(v);
+			List<Telefone> telefones = new ArrayList<>();
+			Telefone t = new Telefone(result.getString("numero"));
+			telefones.add(t);
+			while(result.next()) {
+				Telefone telefone = new Telefone();
+				telefone.setNumero(result.getString("numero"));
+				telefones.add(telefone);
+			}
+			a.setTelefone(telefones);
+		}
+		preparedStatement.close();
+		connection.close();
+		return a;
 	}
 
 	@Override
@@ -85,5 +140,9 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 			return sqlDate;
 		}
 		return null;
+	}
+	private LocalDate toLocalDate (Date date) {
+        return Optional.ofNullable(date).map(Date::toLocalDate).orElse(null);
+		
 	}
 }

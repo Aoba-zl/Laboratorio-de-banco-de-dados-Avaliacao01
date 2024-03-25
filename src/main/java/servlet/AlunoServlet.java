@@ -108,7 +108,7 @@ public class AlunoServlet extends HttpServlet
 				aluno = null;
 			}
 			if (cmd.contains("Buscar")) {
-				alunoController.buscar(aluno);
+				aluno = alunoController.buscar(aluno);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
@@ -116,7 +116,7 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
 			request.setAttribute("aluno",aluno);
-			request.setAttribute("alunos",alunos);
+			//request.setAttribute("alunos",alunos);
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
 		}
