@@ -7,14 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Aluno;
+import model.Curso;
 import model.Telefone;
-
+import model.Vestibular;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +48,9 @@ public class AlunoServlet extends HttpServlet
 		String dtConclusao = request.getParameter("dtConclusao");
 		
 		//Conteudo telefone
-		Telefone tel = new Telefone();
-		String telefone = request.getParameter("telefone");
+		
+
+		String[] telefones = request.getParameterValues("telefone");
 		List<Telefone> telefoneL = new ArrayList<>();
 
 		//Conteudo Vestibular
@@ -60,38 +59,53 @@ public class AlunoServlet extends HttpServlet
 
 		
 		Aluno aluno = new Aluno();
+		Curso curso = new Curso();
 		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir")) {
 			aluno.setRa(ra);
 		}
-		if (cmd.contains("Cadastrar")) {
+		if (cmd.contains("Cadastrar")|| cmd.contains("Alterar")) {
 			aluno.setCpf(cpf);
 			aluno.setNome(nome);
 			aluno.setNomeSocial(nomeSocial);
-			aluno.setDtNascimento(toLocalDate(dtNascimento));
+			aluno.setDtNascimento(toLocalDate(dtNascimento)); 
 			aluno.setEmailPessoal(emailPessoal);
 			aluno.setEmailCorporativo(emailCorporativo);
 			aluno.setInstuicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
-			aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));
+			aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));			
+			Vestibular vestibular = new Vestibular();
+			Float p = Float.parseFloat(pontuacao);
+			int pa = Integer.parseInt(posicao);
+			vestibular.setPontuacao(p);
+			vestibular.setPosicao(pa);
 			
-			tel.setNumero(telefone);
-			telefoneL.add(tel);
+			for(int J =0;J<3;J++) {
+				Telefone telefone = new Telefone();
+				telefone.setNumero(telefones[J]);
+				telefoneL.add(telefone);
+			}
+			for(int J =0;J<3;J++) {
+				System.out.println(telefoneL.get(J));
+			}
 			aluno.setTelefone(telefoneL);
 			
-			aluno.getVestibular().setPosicao(Integer.parseInt(posicao));
-			aluno.getVestibular().setPontuacao(Float.parseFloat(pontuacao));
+			aluno.setVestibular(vestibular);
+			curso.setCodigo(1);
 		}
 		try {
 			if (cmd.contains("Cadastrar")) {
-				alunoController.cadastrar(aluno);
+				alunoController.cadastrar(aluno,curso);
 				saida = "Aluno Cadastrado";
+				aluno = null;
 			}
 			if (cmd.contains("Alterar")) {
 				alunoController.alterar(aluno);
 				saida = "Aluno Alterado";
+				aluno = null;
 			}
 			if (cmd.contains("Excluir")) {
 				alunoController.excluir(aluno);
 				saida = "Aluno Excluido";
+				aluno = null;
 			}
 			if (cmd.contains("Buscar")) {
 				alunoController.buscar(aluno);
@@ -107,16 +121,8 @@ public class AlunoServlet extends HttpServlet
 		}
 	}
 	private LocalDate toLocalDate (String data) {
-		DateTimeFormatter f = new DateTimeFormatterBuilder().parseCaseInsensitive()
-		        .append(DateTimeFormatter.ofPattern("yyyy-MMM-dd")).toFormatter();
-		LocalDate datetime = null;
-		try {
-		    datetime = LocalDate.parse(data, f);
-		    System.out.println(datetime); // 2019-11-12
-		} catch (DateTimeParseException e) {
-		     System.out.println(e);
-		}
-		return datetime;
+		LocalDate localdate = LocalDate.parse(data);
+		return localdate;
 		
 	}
 }
