@@ -81,17 +81,38 @@ private GenericDao gDao;
 	{
 		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 		Connection c = gDao.getConnection();
-		String sql = "SELECT d.nome AS nome_disciplina, d.qntd_hora_semanais "
-				   + "FROM disciplina d, curso c "
-				   + "WHERE d.codigo_curso = c.codigo";
+		String sql = "SELECT d.codigo, d.nome AS nome_disciplina, d.qntd_hora_semanais, d.dia_aula, d.horario_inicio, d.horario_fim FROM disciplina d, curso c WHERE d.codigo_curso = c.codigo";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
 		while(rs.next())
 		{
 			Disciplina d = new Disciplina();
+			d.setCodigo(rs.getInt("codigo"));
 			d.setNome(rs.getString("nome_disciplina"));
 			d.setQntdHoraSemanais(rs.getInt("qntd_hora_semanais"));
+			String diaSemana = "";
+			switch (rs.getInt("dia_aula"))
+			{
+				case 1:
+					diaSemana = "Segunda-feira";
+					break;
+				case 2:
+					diaSemana = "Terça-feira";
+					break;
+				case 3:
+					diaSemana = "Quarta-feira";
+					break;
+				case 4:
+					diaSemana = "Quinta-feira";
+					break;
+				case 5:
+					diaSemana = "Sexta-feira";
+					break;
+			}
+			d.setDiaAula(diaSemana);
+			d.setHorarioInicio(rs.getTime("horario_inicio").toLocalTime());
+			d.setHorarioFim(rs.getTime("horario_fim").toLocalTime());
 			
 			disciplinas.add(d);
 		}

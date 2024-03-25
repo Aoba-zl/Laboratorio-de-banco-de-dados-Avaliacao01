@@ -73,25 +73,42 @@
 				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 			</c:if>
 		</div>
-		<div class="form-container m-auto border border-primary rounded-4">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th class="col">Nome</th>
-						<th class="col">Quantidade de Horas Semanais</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:if test="${not empty disciplinas}">
-						<c:forEach var="d" items="${disciplinas}">
-							<tr>
-								<th scope="row"><c:out value="${d.nome}"/></th>
-								<td><c:out value="${d.qntdHoraSemanais}"/></td>
-							</tr>
-						</c:forEach>
-					</c:if>
-				</tbody>
-			</table>
+		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
+			<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
+				<table class="table table-striped" >
+					<thead>
+						<tr>
+							<th class="col">Selecionar Disciplina</th>
+							<th class="col">Nome</th>
+							<th class="col">Quantidade de Horas Semanais</th>
+							<th class="col" style="min-width: 120px;">Dia de aula</th>
+							<th class="col">Horario de Inicio</th>
+							<th class="col">Horario de Término</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:if test="${not empty disciplinas}">
+							<c:forEach var="d" items="${disciplinas}">
+								<tr>
+									<td>
+										<div>
+											<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>'>
+										</div>
+									</td>
+									<th scope="row"><c:out value="${d.nome}"/></th>
+									<td><c:out value="${d.qntdHoraSemanais}"/> Horas</td>
+									<td><c:out value="${d.diaAula}"/></td>
+									<td><c:out value="${d.horarioInicio}"/></td>
+									<td><c:out value="${d.horarioFim}"/></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+			</div>
+			<div class="form-container m-auto" style="max-width: 900px;">
+				<button class="btn btn-success" name="botao" value="escolherDisciplina">Escolher Disciplina</button>
+			</div>
 		</div>
 	</div>
 </div>

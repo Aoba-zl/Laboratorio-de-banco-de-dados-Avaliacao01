@@ -45,6 +45,8 @@ public class DisciplinaServlet extends HttpServlet {
 		//entrada
 		String cmd = request.getParameter("botao");
 		String ra = request.getParameter("ra");
+		String cod = request.getParameter("checkboxDisciplina");
+		System.out.println(cod);
 		List<Disciplina> disciplinas = new ArrayList<>();
 		
 		//saida

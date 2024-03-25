@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -19,5 +20,8 @@ public class Disciplina
 	private int codigoCurso;
 	private String nome;
 	private int qntdHoraSemanais;
+	private String diaAula;
+	private LocalTime horarioInicio;
+	private LocalTime horarioFim;
 	private List<Conteudo> conteudo;
 }
