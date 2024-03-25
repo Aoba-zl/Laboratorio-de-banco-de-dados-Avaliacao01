@@ -57,7 +57,7 @@ public class AlunoServlet extends HttpServlet
 		String posicao = request.getParameter("posicao");
 		String pontuacao = request.getParameter("pontuacao");
 
-		
+		List<Aluno> alunos = new ArrayList<>();
 		Aluno aluno = new Aluno();
 		Curso curso = new Curso();
 		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir")) {
@@ -98,7 +98,7 @@ public class AlunoServlet extends HttpServlet
 				aluno = null;
 			}
 			if (cmd.contains("Alterar")) {
-				alunoController.alterar(aluno);
+				alunoController.alterar(aluno,curso);
 				saida = "Aluno Alterado";
 				aluno = null;
 			}
@@ -116,6 +116,7 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
 			request.setAttribute("aluno",aluno);
+			request.setAttribute("alunos",alunos);
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
 		}

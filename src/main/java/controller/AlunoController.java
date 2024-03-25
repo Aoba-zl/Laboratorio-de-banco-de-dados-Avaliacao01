@@ -15,8 +15,10 @@ public class AlunoController
 			AlunoDao aDao = new AlunoDao(gDao);
 			aDao.iud("I", aluno,curso);
 	}
-	public void alterar(Aluno aluno) throws SQLException, ClassNotFoundException {
-		
+	public void alterar(Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
+		GenericDao gDao = new GenericDao();
+		AlunoDao aDao = new AlunoDao(gDao);
+		aDao.iud("U", aluno,curso);
 	}
 	public void excluir(Aluno aluno) throws SQLException, ClassNotFoundException {
 		GenericDao gDao = new GenericDao();

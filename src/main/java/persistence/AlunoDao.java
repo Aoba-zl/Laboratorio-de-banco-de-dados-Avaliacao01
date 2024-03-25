@@ -57,7 +57,7 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
         String ra = cs.getString(15);
         cs.close();
         
-        if(saida.contains("Aluno cadastrado") ) {
+        if(saida.contains("Aluno cadastrado") || saida.contains("Aluno atualizado") ) {
 	        querySql = "EXEC sp_telefone_aluno ?,?,?,?,?";
 	        cs = connection.prepareCall(querySql);
 	        for (int J=1; J <=3;J++) {	
