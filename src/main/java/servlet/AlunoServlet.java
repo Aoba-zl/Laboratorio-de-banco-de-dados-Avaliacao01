@@ -83,11 +83,8 @@ public class AlunoServlet extends HttpServlet
 				telefone.setNumero(telefones[J]);
 				telefoneL.add(telefone);
 			}
-			for(int J =0;J<3;J++) {
-				System.out.println(telefoneL.get(J));
-			}
+
 			aluno.setTelefone(telefoneL);
-			
 			aluno.setVestibular(vestibular);
 			curso.setCodigo(1);
 		}
@@ -116,9 +113,10 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
 			request.setAttribute("aluno",aluno);
-			//request.setAttribute("alunos",alunos);
+			request.setAttribute("alunos",alunos);
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
+			
 		}
 	}
 	private LocalDate toLocalDate (String data) {
