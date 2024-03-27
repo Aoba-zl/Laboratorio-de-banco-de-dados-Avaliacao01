@@ -83,7 +83,7 @@ public class DisciplinaServlet extends HttpServlet {
 						MatriculaDisciplina md = new MatriculaDisciplina();
 						md.setCodigoDisciplina(c);
 						md.setIdMatricula(matricula);
-						md.setStatus("Em andamento");
+						md.setStatus("Em andamento.");
 						
 						mdList.add(md);
 					}
