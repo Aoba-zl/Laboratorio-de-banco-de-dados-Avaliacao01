@@ -18,7 +18,7 @@ public class Curso
 {
 	private int codigo;
 	private String nome;
-	private LocalTime cargaHoraria;
+	private int cargaHoraria;
 	private String sigla;
 	private float ultNotaParticipacaoEnade;
 	private List<Matricula> matricula;

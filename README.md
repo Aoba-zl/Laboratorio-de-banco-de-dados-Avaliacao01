@@ -12,11 +12,11 @@
 - procedure
     - [x] CPF (Matheus)
     - [ ] Horário (Matheus)
-    - [ ] Idade igual ou superior 16
-    - [ ] Data limite de graduação
-    - [ ] RA ano ingresso + semestre ingresso + 4 numero aleatorio (David)
-    - [ ] IUD Aluno (Matheus)
-    - [ ] Matricula (David)
+    - [x] Idade igual ou superior 16
+    - [x] Data limite de graduação
+    - [x] RA ano ingresso + semestre ingresso + 4 numero aleatorio (David)
+    - [x] IUD Aluno (Matheus)
+    - [x] Matricula (David)
 - [x] Model
 - Controller
     - [ ] AlunoController (David)
