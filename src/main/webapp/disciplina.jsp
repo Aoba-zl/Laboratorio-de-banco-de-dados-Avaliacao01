@@ -54,62 +54,67 @@
 					</div>
 				</div>
 			</nav>
-		<main class="rounded-4 border border-primary form-container m-auto mb-3">
+		<main>
 			<form action="disciplina" method="post">
-				<div class="form-floating d-flex mb-3">
-					<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-					<label for="floatingInput" class="font-text">RA</label>
-					<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
+				<div class="rounded-4 border border-primary form-container m-auto mb-3">
+					<div class="form-floating d-flex mb-3">
+						<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${ra}"></c:out>'>
+						<label for="floatingInput" class="font-text">RA</label>
+						<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
+					</div>
+					<input type=hidden class="form-control input-height" placeholder="Matricula" name="matricula" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${matricula}"></c:out>'>
+				</div>
+				<div>
+					<c:if test="${not empty erro}">
+						<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
+					</c:if>
+				</div>
+				<div>
+					<c:if test="${not empty saida}">
+						<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
+					</c:if>
+				</div>
+				<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
+					<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
+						<table class="table table-striped" >
+							<thead>
+								<tr>
+									<th class="col">Selecionar Disciplina</th>
+									<th class="col">Nome</th>
+									<th class="col">Quantidade de Horas Semanais</th>
+									<th class="col" style="min-width: 120px;">Dia de aula</th>
+									<th class="col">Horario de Inicio</th>
+									<th class="col">Horario de Término</th>
+									<th class="col" style="min-width: 130px">Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${not empty disciplinas}">
+									<c:forEach var="d" items="${disciplinas}">
+										<tr>
+											<td>
+												<div>
+													<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>'>
+												</div>
+											</td>
+											<th scope="row"><c:out value="${d.nome}"/></th>
+											<td><c:out value="${d.qntdHoraSemanais}"/> Horas</td>
+											<td><c:out value="${d.diaAula}"/></td>
+											<td><c:out value="${d.horarioInicio}"/></td>
+											<td><c:out value="${d.horarioFim}"/></td>
+											<td><c:out value="${d.umMatriculaDisciplina.status}"/></td>
+										</tr>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					<div class="form-container m-auto" style="max-width: 900px;">
+						<button class="btn btn-success" name="botao" value="escolherDisciplina">Escolher Disciplina</button>
+					</div>
 				</div>
 			</form>
 		</main>
-		<div>
-			<c:if test="${not empty erro}">
-				<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
-			</c:if>
-		</div>
-		<div>
-			<c:if test="${not empty saida}">
-				<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
-			</c:if>
-		</div>
-		<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
-			<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
-				<table class="table table-striped" >
-					<thead>
-						<tr>
-							<th class="col">Selecionar Disciplina</th>
-							<th class="col">Nome</th>
-							<th class="col">Quantidade de Horas Semanais</th>
-							<th class="col" style="min-width: 120px;">Dia de aula</th>
-							<th class="col">Horario de Inicio</th>
-							<th class="col">Horario de Término</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:if test="${not empty disciplinas}">
-							<c:forEach var="d" items="${disciplinas}">
-								<tr>
-									<td>
-										<div>
-											<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>'>
-										</div>
-									</td>
-									<th scope="row"><c:out value="${d.nome}"/></th>
-									<td><c:out value="${d.qntdHoraSemanais}"/> Horas</td>
-									<td><c:out value="${d.diaAula}"/></td>
-									<td><c:out value="${d.horarioInicio}"/></td>
-									<td><c:out value="${d.horarioFim}"/></td>
-								</tr>
-							</c:forEach>
-						</c:if>
-					</tbody>
-				</table>
-			</div>
-			<div class="form-container m-auto" style="max-width: 900px;">
-				<button class="btn btn-success" name="botao" value="escolherDisciplina">Escolher Disciplina</button>
-			</div>
-		</div>
 	</div>
 </div>
 </body>

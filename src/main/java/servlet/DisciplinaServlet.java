@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Disciplina;
+import model.MatriculaDisciplina;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,23 +22,25 @@ public class DisciplinaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		List<Disciplina> disciplinas = new ArrayList<>();
-		DisciplinaController dControl = new DisciplinaController();
-		String erro = "";
+//		List<Disciplina> disciplinas = new ArrayList<>();
+//		DisciplinaController dControl = new DisciplinaController();
+//		String erro = "";
+//		
+//		try {			
+//			disciplinas = dControl.listar();
+//		} catch(SQLException | ClassNotFoundException e) {
+//			erro = e.getMessage();
+//		} finally {
+//			
+//			request.setAttribute("erro", erro);
+//			request.setAttribute("disciplinas", disciplinas);
+//			
+//			RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
+//			rd.forward(request, response);
+//		}
 		
-		try {			
-			disciplinas = dControl.listar();
-		} catch(SQLException | ClassNotFoundException e) {
-			erro = e.getMessage();
-		} finally {
-			
-			request.setAttribute("erro", erro);
-			request.setAttribute("disciplinas", disciplinas);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
-			rd.forward(request, response);
-		}
-		
+		RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
+		rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -45,9 +48,10 @@ public class DisciplinaServlet extends HttpServlet {
 		//entrada
 		String cmd = request.getParameter("botao");
 		String ra = request.getParameter("ra");
-		String cod = request.getParameter("checkboxDisciplina");
-		System.out.println(cod);
+		String[] cod = request.getParameterValues("checkboxDisciplina");
+		String matricula = request.getParameter("matricula");
 		List<Disciplina> disciplinas = new ArrayList<>();
+		
 		
 		//saida
 		String saida = "";
@@ -65,23 +69,44 @@ public class DisciplinaServlet extends HttpServlet {
 			if(cmd.contains("Buscar"))
 			{
 				disciplinas = dControl.buscarAlunoDisciplina(ra);
+				MatriculaDisciplina md = new MatriculaDisciplina();
+				md = disciplinas.get(0).getUmMatriculaDisciplina();
+				matricula = md.getIdMatricula();
 			}
+			if(cmd.contains("escolherDisciplina"))
+			{
+				if(!(cod == null))
+				{
+					List<MatriculaDisciplina> mdList = new ArrayList<MatriculaDisciplina>();
+					for(String c : cod)
+					{
+						MatriculaDisciplina md = new MatriculaDisciplina();
+						md.setCodigoDisciplina(c);
+						md.setIdMatricula(matricula);
+						md.setStatus("Em andamento");
+						
+						mdList.add(md);
+					}
+					
+					saida = dControl.escolheDisciplina(mdList);
+					
+					disciplinas = dControl.buscarAlunoDisciplina(ra);
+				}
+				else
+				{
+					saida = "Selecione as caixa das disciplinas que queira fazer!";
+				}
+			}
+			
 		} catch (SQLException | ClassNotFoundException e)
 		{
 			erro = e.getMessage();
 		} finally {
-			try {
-				if(!cmd.contains("Buscar"))
-				{
-					disciplinas = dControl.listar();					
-				}
-			} catch (SQLException | ClassNotFoundException e) {
-				erro = e.getMessage();
-			}
 			
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
-//			request.setAttribute("disciplina", d);
+			request.setAttribute("ra", ra);
+			request.setAttribute("matricula", matricula);
 			request.setAttribute("disciplinas", disciplinas);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");

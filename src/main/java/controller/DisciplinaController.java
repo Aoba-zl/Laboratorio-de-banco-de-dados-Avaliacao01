@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import model.Disciplina;
+import model.MatriculaDisciplina;
 import persistence.GenericDao;
 import persistence.DisciplinaDao;
 
@@ -24,6 +25,15 @@ public class DisciplinaController
 		List<Disciplina> disciplinas = dDao.listar();
 		
 		return disciplinas;
+	}
+	
+	public String escolheDisciplina(List<MatriculaDisciplina> mdList) throws SQLException, ClassNotFoundException 
+	{
+		GenericDao gDao = new GenericDao();
+		DisciplinaDao dDao = new DisciplinaDao(gDao);
+		String saida = dDao.escolheDisciplina(mdList);
+		
+		return saida;
 	}
 	
 	public boolean validar(String v)
