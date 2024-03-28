@@ -60,7 +60,7 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 			a.setEmailPessoal(result.getString("email_pessoal"));
 			a.setEmailCorporativo(result.getString("email_corporativo"));
 			a.setDtConclusaoSegGrau(toLocalDate(result.getDate("dt_conclusao_seg_grau")));
-			a.setInstuicaoConclusaoSegGrau(result.getString("instituicao_conclusao_seg_grau"));
+			a.setInstituicaoConclusaoSegGrau(result.getString("instituicao_conclusao_seg_grau"));
 			Vestibular v = new Vestibular();
 			v.setPontuacao(result.getFloat("pontuacao"));
 			v.setPosicao(result.getInt("posicao"));
@@ -83,7 +83,41 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 	@Override
 	public List<Aluno> listar() throws SQLException, ClassNotFoundException 
 	{
-		return null;
+		Connection connection = gDao.getConnection();
+		String querySql = """ 
+				SELECT 
+				a.ra, 
+				a.cpf, 
+				a.nome, 
+				a.nome_social, 
+				a.dt_nascimento, 
+				a.email_pessoal, 
+				a.dt_conclusao_seg_grau, 
+				a.instituicao_conclusao_seg_grau,
+				v.pontuacao,
+				v.posicao 
+				FROM aluno a,vestibular v
+				WHERE a.ra = v.ra_aluno
+				""";
+		PreparedStatement preparedStatement = connection.prepareStatement(querySql);
+		ResultSet result = preparedStatement.executeQuery();
+		List<Aluno> alunos = new ArrayList<>();
+		while (result.next()) {
+			Aluno a = new Aluno();
+			a.setRa(result.getString("ra"));
+			a.setCpf(result.getString("cpf"));
+			a.setNome(result.getString("nome"));
+			a.setDtNascimento(toLocalDate(result.getDate("dt_nascimento")));
+			a.setEmailPessoal(result.getString("email_pessoal"));
+			a.setInstituicaoConclusaoSegGrau(result.getString("instituicao_conclusao_seg_grau"));
+			a.setDtConclusaoSegGrau(toLocalDate(result.getDate("dt_conclusao_seg_grau")));
+			Vestibular v = new Vestibular();
+			v.setPontuacao(result.getFloat("pontuacao"));
+			v.setPosicao(result.getInt("posicao"));
+			a.setVestibular(v);
+			alunos.add(a);
+		}
+		return alunos;
 	}
 
 	@Override
@@ -101,7 +135,7 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 		cs.setString(7,aluno.getEmailPessoal());	
 		cs.setString(8,aluno.getEmailCorporativo());
 		cs.setDate(9,toSQLDate(aluno.getDtConclusaoSegGrau()));
-		cs.setString(10,aluno.getInstuicaoConclusaoSegGrau());
+		cs.setString(10,aluno.getInstituicaoConclusaoSegGrau());
 		cs.setFloat(11, aluno.getVestibular().getPontuacao());
 		cs.setInt(12, aluno.getVestibular().getPosicao());
 		cs.setInt(13, curso.getCodigo());

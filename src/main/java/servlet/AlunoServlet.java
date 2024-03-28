@@ -31,7 +31,6 @@ public class AlunoServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
 		String saida ="";
 		String erro = "";
 		AlunoController alunoController = new AlunoController();
@@ -45,10 +44,9 @@ public class AlunoServlet extends HttpServlet
 		String emailPessoal = request.getParameter("emailPessoal");
 		String emailCorporativo = request.getParameter("emailCorporativo");
 		String instituicaoConclusaoSegGrau = request.getParameter("instituicaoConclusaoSegGrau");
-		String dtConclusao = request.getParameter("dtConclusao");
+		String dtConclusao = request.getParameter("dtConclusaoSegGrau");
 		
 		//Conteudo telefone
-		
 
 		String[] telefones = request.getParameterValues("telefone");
 		List<Telefone> telefoneL = new ArrayList<>();
@@ -70,7 +68,7 @@ public class AlunoServlet extends HttpServlet
 			aluno.setDtNascimento(toLocalDate(dtNascimento)); 
 			aluno.setEmailPessoal(emailPessoal);
 			aluno.setEmailCorporativo(emailCorporativo);
-			aluno.setInstuicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
+			aluno.setInstituicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
 			aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));			
 			Vestibular vestibular = new Vestibular();
 			Float p = Float.parseFloat(pontuacao);
@@ -107,6 +105,7 @@ public class AlunoServlet extends HttpServlet
 			if (cmd.contains("Buscar")) {
 				aluno = alunoController.buscar(aluno);
 			}
+			alunos = alunoController.listar(alunos);
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
 		}finally {
@@ -116,7 +115,6 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("alunos",alunos);
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
-			
 		}
 	}
 	private LocalDate toLocalDate (String data) {

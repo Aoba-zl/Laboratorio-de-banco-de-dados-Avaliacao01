@@ -115,7 +115,7 @@
 								<label for="floatingInput" class="font-text">Instituição de Conclusão do Segundo Grau</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusao" value='<c:out value="${aluno.dtConclusao}"></c:out>'>
+								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusaoSegGrau" value='<c:out value="${aluno.dtConclusaoSegGrau}"></c:out>'>
 								<label for="floatingInput" class="font-text">Data de Conclusão</label>
 							</div>
 							<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
@@ -163,18 +163,15 @@
 				</c:if>
 			</div>
 			<div class="form-container m-auto border border-primary rounded-4" style="max-width: 1300px;">
-				<table class="table table-striped d-flex justify-content-center">
+				<table class="table table-striped">
 					<thead>
 						<tr class="text-center">
 							<th class="col">RA</th>
 							<th class="col">CPF</th>
 							<th class="col">Nome</th>
-							<th class="col">Nome Social</th>
 							<th class="col">Data de nascimento</th>
 							<th class="col">Email Pessoal</th>
-							<th class="col">Email Corporativo</th>
-							<th class="col">Telefone</th>
-							<th class="col" style="text-wrap: nowrap; max-width: 100px; overflow-x: hidden; text-overflow: ellipsis" title="Inst. de Concl. de Segundo grau">Inst. de Concl. de Segundo grau</th>
+							<th class="col" style="text-wrap: nowrap; max-width: 255px; overflow-x: hidden; text-overflow: ellipsis" title="Inst. de Concl. de Segundo grau">Inst. de Concl. de Segundo grau</th>
 							<th class="col">Data de conclusão</th>
 							<th class="col">Posição</th>
 							<th class="col">Pontuação</th>
@@ -187,13 +184,10 @@
 									<th scope="row"><c:out value="${a.ra}"/></th>
 									<th><c:out value="${a.cpf}"/></th>
 									<td><c:out value="${a.nome}"/></td>
-									<td><c:out value="${a.nomeSocial}"/></td>
 									<td><c:out value="${a.dtNascimento}"/></td>
 									<td><c:out value="${a.emailPessoal}"/></td>
-									<td><c:out value="${a.emailCorporativo}"/></td>
-									<td><c:out value="${a.telefone}"/></td>
 									<td><c:out value="${a.instituicaoConclusaoSegGrau}"/></td>
-									<td><c:out value="${a.dtConclusao}"/></td>
+									<td><c:out value="${a.dtConclusaoSegGrau}"/></td>
 									<td><c:out value="${a.vestibular.posicao}"/></td>
 									<td><c:out value="${a.vestibular.pontuacao}"/></td>
 								</tr>

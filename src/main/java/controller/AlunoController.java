@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import model.Aluno;
 import model.Curso;
@@ -36,7 +37,9 @@ public class AlunoController
 		aluno = aDao.consultar(aluno);
 		return aluno;
 	}
-	public void listar() throws SQLException, ClassNotFoundException {
-		
+	public List<Aluno> listar(List<Aluno> alunos) throws SQLException, ClassNotFoundException {
+		GenericDao gDao = new GenericDao();
+		AlunoDao aDao = new AlunoDao(gDao);
+		return alunos = aDao.listar();
 	}
 }
