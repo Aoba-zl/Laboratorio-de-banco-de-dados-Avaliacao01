@@ -24,17 +24,14 @@ public class AlunoServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		AlunoController alunoController = new AlunoController();
-		CursoController cursoController = new CursoController();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String erro = "";
 		
 		List<Aluno> alunos = new ArrayList<>();
 		List<Curso> cursos = new ArrayList<>();
 		try {
-			alunos = alunoController.listar(alunos);
-			cursos = cursoController.listarCompleto();
+			alunos = getAlunos(alunos);
+			cursos = getCursos(cursos);
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
 		}finally {
@@ -75,7 +72,6 @@ public class AlunoServlet extends HttpServlet
 
 		List<Aluno> alunos = new ArrayList<>();
 		Aluno aluno = new Aluno();
-		CursoController cursoController = new CursoController();
 		List<Curso> cursos = new ArrayList<>();
 		Curso curso = new Curso();
 		
@@ -126,8 +122,8 @@ public class AlunoServlet extends HttpServlet
 			if (cmd.contains("Buscar")) {
 				aluno = alunoController.buscar(aluno);
 			}
-			cursos = cursoController.listarCompleto();
-			alunos = alunoController.listar(alunos);
+			cursos = getCursos(cursos);
+			alunos = getAlunos(alunos);
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
 		}finally {
@@ -144,5 +140,15 @@ public class AlunoServlet extends HttpServlet
 		LocalDate localdate = LocalDate.parse(data);
 		return localdate;
 		
+	}
+	private List<Curso> getCursos (List<Curso> cursos) throws ClassNotFoundException, SQLException {
+		CursoController cursoController = new CursoController();
+		cursos = cursoController.listarCompleto();
+		return cursos;
+		
+	}
+	private List<Aluno> getAlunos (List<Aluno> alunos) throws ClassNotFoundException, SQLException {
+		AlunoController alunoController = new AlunoController();
+		return alunoController.listar(alunos);
 	}
 }
