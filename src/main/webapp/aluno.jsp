@@ -133,14 +133,13 @@
 								<h5>Curso</h5>
 							</div>
 							<div class="mb-3 input-height">
-								<select class="form-select" size="9" style="max-height: 208px;">
+								<select name="tabCursos" class="form-select" size="9" style="max-height: 208px;">
 									<option disabled selected>Selecione um curso</option>
-									<option value="1">test</option>
-									<option value="2">test2</option>
-									<option value="3">test3</option>
-									<option value="4">test4</option>
-									<option value="5">test5</option>
-									<option value="6">test6</option>
+									<c:if test="${not empty cursos}">
+										<c:forEach var="c" items="${cursos}">
+											<option value="${c.codigo}">${c.nome}</option>
+										</c:forEach>
+									</c:if>
 								</select>
 							</div>
 						</div>
@@ -154,7 +153,7 @@
 			</main>
 			<div>
 				<c:if test="${not empty erro}">
-					<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
+					<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>				
 				</c:if>
 			</div>
 			<div>

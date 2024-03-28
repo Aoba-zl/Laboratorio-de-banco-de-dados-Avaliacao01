@@ -11,17 +11,22 @@ import persistence.GenericDao;
 
 public class AlunoController 
 {
-	public void cadastrar (Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
-			GenericDao gDao = new GenericDao();
-			AlunoDao aDao = new AlunoDao(gDao);
-			aDao.iud("I", aluno,curso);
-	}
-	public void alterar(Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
+	public String cadastrar (Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
+		String saida;
 		GenericDao gDao = new GenericDao();
 		AlunoDao aDao = new AlunoDao(gDao);
-		aDao.iud("U", aluno,curso);
+		saida = aDao.iud("I", aluno,curso);
+		return saida;
 	}
-	public void excluir(Aluno aluno) throws SQLException, ClassNotFoundException {
+	public String alterar(Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
+		String saida;
+		GenericDao gDao = new GenericDao();
+		AlunoDao aDao = new AlunoDao(gDao);
+		saida = aDao.iud("U", aluno,curso);
+		return saida;
+	}
+	public String excluir(Aluno aluno) throws SQLException, ClassNotFoundException {
+		String saida;
 		GenericDao gDao = new GenericDao();
 		AlunoDao aDao = new AlunoDao(gDao);
 		Curso curso = new Curso();
@@ -29,7 +34,8 @@ public class AlunoController
 		v.setPontuacao(0);
 		v.setPosicao(0);
 		aluno.setVestibular(v);
-		aDao.iud("D", aluno,curso);
+		saida = aDao.iud("D", aluno,curso);
+		return saida;
 	}
 	public Aluno buscar(Aluno aluno) throws SQLException, ClassNotFoundException {
 		GenericDao gDao = new GenericDao();
