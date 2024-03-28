@@ -90,11 +90,17 @@
 							</thead>
 							<tbody>
 								<c:if test="${not empty disciplinas}">
+									<c:set var="emAndamento" value="false"/>
+									<c:forEach var="d" items="${disciplinas}">
+										<c:if test="${d.umMatriculaDisciplina.status eq 'Em andamento.'}">
+											<c:set var="emAndamento" value="true"/>
+										</c:if>
+									</c:forEach>
 									<c:forEach var="d" items="${disciplinas}">
 										<tr>
 											<td>
 												<div>
-													<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>'>
+													<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>' <c:if test="${emAndamento}">disabled</c:if>>
 												</div>
 											</td>
 											<th scope="row"><c:out value="${d.nome}"/></th>

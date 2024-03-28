@@ -30,7 +30,8 @@ private GenericDao gDao;
 				   + "WHERE d.codigo = md.codigo_disciplina "
 				   + "	AND m.id = md.id_matricula"
 				   + "  AND m.ra_aluno = a.ra "
-				   + "  AND a.ra = ?";
+				   + "  AND a.ra = ? "
+				   + "ORDER BY md.status ASC";
 		PreparedStatement ps = c.prepareStatement(sql);
 		ps.setString(1, ra);
 		ResultSet rs = ps.executeQuery();
