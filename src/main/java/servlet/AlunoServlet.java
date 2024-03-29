@@ -59,7 +59,7 @@ public class AlunoServlet extends HttpServlet
 		String emailCorporativo = request.getParameter("emailCorporativo");
 		String instituicaoConclusaoSegGrau = request.getParameter("instituicaoConclusaoSegGrau");
 		String dtConclusao = request.getParameter("dtConclusaoSegGrau");
-		String cursoId = request.getParameter("tabCursos");
+		String cursoId = request.getParameter("tabCursos");	
 		
 		//Conteudo telefone
 
@@ -82,17 +82,26 @@ public class AlunoServlet extends HttpServlet
 			aluno.setCpf(cpf);
 			aluno.setNome(nome);
 			aluno.setNomeSocial(nomeSocial);
-			aluno.setDtNascimento(toLocalDate(dtNascimento)); 
+			if (dtNascimento != "") {
+				aluno.setDtNascimento(toLocalDate(dtNascimento));
+			}
 			aluno.setEmailPessoal(emailPessoal);
 			aluno.setEmailCorporativo(emailCorporativo);
 			aluno.setInstituicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
-			aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));			
+			if (dtConclusao != "") {
+				aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));	
+			}
 			Vestibular vestibular = new Vestibular();
-			Float p = Float.parseFloat(pontuacao);
-			int pa = Integer.parseInt(posicao);
-			vestibular.setPontuacao(p);
-			vestibular.setPosicao(pa);
-			
+			if (pontuacao != "") {
+				Float pont = Float.parseFloat(pontuacao);
+				vestibular.setPontuacao(pont);
+			}
+
+			if (posicao != "") {
+				int posi = Integer.parseInt(posicao);
+				vestibular.setPosicao(posi);
+			}
+			aluno.setVestibular(vestibular);
 			for(int J =0;J<3;J++) {
 				Telefone telefone = new Telefone();
 				telefone.setNumero(telefones[J]);
@@ -100,27 +109,40 @@ public class AlunoServlet extends HttpServlet
 			}
 
 			aluno.setTelefone(telefoneL);
-			aluno.setVestibular(vestibular);
-			curso.setCodigo(Integer.parseInt(cursoId));
+			if (cursoId != null) {
+				curso.setCodigo(Integer.parseInt(cursoId));
+			} else {
+				curso.setCodigo(-1);
+			}
+
 		}
 		try {
 			if (cmd.contains("Cadastrar")) {
 				saida = alunoController.cadastrar(aluno,curso);
 				//saida = "Aluno Cadastrado";
-				aluno = null;
+				if (saida.contains("Aluno cadastrado!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Alterar")) {
 				saida = alunoController.alterar(aluno,curso);
 				//saida = "Aluno Alterado";
-				aluno = null;
+				if (saida.contains("Aluno atualizado!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Excluir")) {
 				saida = alunoController.excluir(aluno);
 				//saida = "Aluno Excluido";
-				aluno = null;
+				if (saida.contains("Aluno excluído!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Buscar")) {
 				aluno = alunoController.buscar(aluno);
+				if (aluno.getCpf() == null) {
+					saida = "RA não existe";
+				}
 			}
 			cursos = getCursos(cursos);
 			alunos = getAlunos(alunos);
@@ -132,6 +154,11 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("aluno",aluno);
 			request.setAttribute("alunos",alunos);
 			request.setAttribute("cursos",cursos);
+			if (cmd.contains("Buscar") && aluno.getTelefone() != null) {
+				request.setAttribute("telefone1",aluno.getTelefone().get(0).getNumero());
+				request.setAttribute("telefone2",aluno.getTelefone().get(1).getNumero());
+				request.setAttribute("telefone3",aluno.getTelefone().get(2).getNumero());
+			}
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
 		}

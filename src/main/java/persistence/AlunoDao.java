@@ -68,12 +68,18 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 			List<Telefone> telefones = new ArrayList<>();
 			Telefone t = new Telefone(result.getString("numero"));
 			telefones.add(t);
-			while(result.next()) {
+			for(int J=0;J<3;J++) {
 				Telefone telefone = new Telefone();
-				telefone.setNumero(result.getString("numero"));
+				if (result.next()) {
+					telefone.setNumero(result.getString("numero"));
+				} else {
+					telefone.setNumero("");
+				}
 				telefones.add(telefone);
 			}
 			a.setTelefone(telefones);
+		} else {
+			
 		}
 		preparedStatement.close();
 		connection.close();
