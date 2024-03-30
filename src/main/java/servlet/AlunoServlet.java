@@ -159,9 +159,7 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("alunos",alunos);
 			request.setAttribute("cursos",cursos);
 			if (cmd.contains("Buscar") && aluno.getTelefone() != null) {
-				request.setAttribute("telefone1",aluno.getTelefone().get(0).getNumero());
-				request.setAttribute("telefone2",aluno.getTelefone().get(1).getNumero());
-				request.setAttribute("telefone3",aluno.getTelefone().get(2).getNumero());
+				request.setAttribute("telefones",aluno.getTelefone());
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);

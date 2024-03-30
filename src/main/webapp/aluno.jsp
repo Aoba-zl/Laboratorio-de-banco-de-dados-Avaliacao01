@@ -94,15 +94,15 @@
 								<label for="floatingInput" class="font-text">Email Corporativo</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone1}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefones.get(0).getNumero()}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone2}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefones.get(1).getNumero()}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone3}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefones.get(2).getNumero()}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 						</div>
