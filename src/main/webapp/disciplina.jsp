@@ -155,18 +155,12 @@
 			}
 		);
 		
-		const day_with_hour = e => 
-		{ 
-			let n = {};
-			n[e.dia] = { start: e.horarioInicio, end: e.horarioFim };
-			return n;
- 		} // {Segunda: {start: 12, end: 13}}
 		
-		const merge_day = (a, [[k, e]]) => 
+		const merge_day = (a, e) => 
 		{ 
-			if (k in a)
-				a[k].push(e);
-			else a[k] = [e]
+			if (e.dia in a)
+				a[e.dia].push({start: e.horarioInicio, end: e.horarioFim});
+			else a[e.dia] = [{start: e.horarioInicio, end: e.horarioFim}]
 			return a;
  		} // {Segunda: [{start: 12, end: 13}, {start: 12, end: 13}]}
 		
@@ -178,8 +172,6 @@
 	        
         	Object.entries(
         		diaHorariosSelecionados
-	        		.map(day_with_hour)
-	        		.map(Object.entries)
 	        		.reduce(merge_day, {})
 	        ).sort(([k1, v1], [k2, v2]) => v1.start - v2.start)
 	        	.map(([k, v]) => [k, v.reduce((d1, d2) => d1.end < d2.start)])
