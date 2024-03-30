@@ -16,4 +16,11 @@ public class CursoController
 		List<Curso> cursos = cDao.listar();
 		return cursos;
 	}
+	public List<Curso> listarCompleto() throws SQLException, ClassNotFoundException 
+	{
+		GenericDao gDao = new GenericDao();
+		CursoDao cDao = new CursoDao(gDao);
+		List<Curso> cursos = cDao.listarCompleto();
+		return cursos;
+	}
 }

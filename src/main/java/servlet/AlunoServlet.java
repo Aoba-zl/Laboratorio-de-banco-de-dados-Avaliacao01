@@ -14,24 +14,37 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import controller.AlunoController;
+import controller.CursoController;
 
 @WebServlet("/aluno")
 public class AlunoServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
-		rd.forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String erro = "";
+		
+		List<Aluno> alunos = new ArrayList<>();
+		List<Curso> cursos = new ArrayList<>();
+		try {
+			alunos = getAlunos(alunos);
+			cursos = getCursos(cursos);
+		} catch (SQLException | ClassNotFoundException e) {
+			erro = e.getMessage();
+		}finally {
+			request.setAttribute("erro", erro);
+			request.setAttribute("alunos",alunos);
+			request.setAttribute("cursos",cursos);
+			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
 		String saida ="";
 		String erro = "";
 		AlunoController alunoController = new AlunoController();
@@ -45,10 +58,10 @@ public class AlunoServlet extends HttpServlet
 		String emailPessoal = request.getParameter("emailPessoal");
 		String emailCorporativo = request.getParameter("emailCorporativo");
 		String instituicaoConclusaoSegGrau = request.getParameter("instituicaoConclusaoSegGrau");
-		String dtConclusao = request.getParameter("dtConclusao");
+		String dtConclusao = request.getParameter("dtConclusaoSegGrau");
+		String cursoId = request.getParameter("tabCursos");	
 		
 		//Conteudo telefone
-		
 
 		String[] telefones = request.getParameterValues("telefone");
 		List<Telefone> telefoneL = new ArrayList<>();
@@ -59,7 +72,9 @@ public class AlunoServlet extends HttpServlet
 
 		List<Aluno> alunos = new ArrayList<>();
 		Aluno aluno = new Aluno();
+		List<Curso> cursos = new ArrayList<>();
 		Curso curso = new Curso();
+		
 		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir")) {
 			aluno.setRa(ra);
 		}
@@ -67,17 +82,26 @@ public class AlunoServlet extends HttpServlet
 			aluno.setCpf(cpf);
 			aluno.setNome(nome);
 			aluno.setNomeSocial(nomeSocial);
-			aluno.setDtNascimento(toLocalDate(dtNascimento)); 
+			if (dtNascimento != "") {
+				aluno.setDtNascimento(toLocalDate(dtNascimento));
+			}
 			aluno.setEmailPessoal(emailPessoal);
 			aluno.setEmailCorporativo(emailCorporativo);
-			aluno.setInstuicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
-			aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));			
+			aluno.setInstituicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
+			if (dtConclusao != "") {
+				aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));	
+			}
 			Vestibular vestibular = new Vestibular();
-			Float p = Float.parseFloat(pontuacao);
-			int pa = Integer.parseInt(posicao);
-			vestibular.setPontuacao(p);
-			vestibular.setPosicao(pa);
-			
+			if (pontuacao != "") {
+				Float pont = Float.parseFloat(pontuacao);
+				vestibular.setPontuacao(pont);
+			}
+
+			if (posicao != "") {
+				int posi = Integer.parseInt(posicao);
+				vestibular.setPosicao(posi);
+			}
+			aluno.setVestibular(vestibular);
 			for(int J =0;J<3;J++) {
 				Telefone telefone = new Telefone();
 				telefone.setNumero(telefones[J]);
@@ -85,28 +109,43 @@ public class AlunoServlet extends HttpServlet
 			}
 
 			aluno.setTelefone(telefoneL);
-			aluno.setVestibular(vestibular);
-			curso.setCodigo(1);
+			if (cursoId != null) {
+				curso.setCodigo(Integer.parseInt(cursoId));
+			} else {
+				curso.setCodigo(-1);
+			}
+
 		}
 		try {
 			if (cmd.contains("Cadastrar")) {
-				alunoController.cadastrar(aluno,curso);
-				saida = "Aluno Cadastrado";
-				aluno = null;
+				saida = alunoController.cadastrar(aluno,curso);
+				//saida = "Aluno Cadastrado";
+				if (saida.contains("Aluno cadastrado!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Alterar")) {
-				alunoController.alterar(aluno,curso);
-				saida = "Aluno Alterado";
-				aluno = null;
+				saida = alunoController.alterar(aluno,curso);
+				//saida = "Aluno Alterado";
+				if (saida.contains("Aluno atualizado!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Excluir")) {
-				alunoController.excluir(aluno);
-				saida = "Aluno Excluido";
-				aluno = null;
+				saida = alunoController.excluir(aluno);
+				//saida = "Aluno Excluido";
+				if (saida.contains("Aluno excluído!")) {
+					aluno = null;
+				}
 			}
 			if (cmd.contains("Buscar")) {
 				aluno = alunoController.buscar(aluno);
+				if (aluno.getCpf() == null) {
+					saida = "RA não existe";
+				}
 			}
+			cursos = getCursos(cursos);
+			alunos = getAlunos(alunos);
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
 		}finally {
@@ -114,14 +153,29 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("erro", erro);
 			request.setAttribute("aluno",aluno);
 			request.setAttribute("alunos",alunos);
+			request.setAttribute("cursos",cursos);
+			if (cmd.contains("Buscar") && aluno.getTelefone() != null) {
+				request.setAttribute("telefone1",aluno.getTelefone().get(0).getNumero());
+				request.setAttribute("telefone2",aluno.getTelefone().get(1).getNumero());
+				request.setAttribute("telefone3",aluno.getTelefone().get(2).getNumero());
+			}
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
-			
 		}
 	}
 	private LocalDate toLocalDate (String data) {
 		LocalDate localdate = LocalDate.parse(data);
 		return localdate;
 		
+	}
+	private List<Curso> getCursos (List<Curso> cursos) throws ClassNotFoundException, SQLException {
+		CursoController cursoController = new CursoController();
+		cursos = cursoController.listarCompleto();
+		return cursos;
+		
+	}
+	private List<Aluno> getAlunos (List<Aluno> alunos) throws ClassNotFoundException, SQLException {
+		AlunoController alunoController = new AlunoController();
+		return alunoController.listar(alunos);
 	}
 }

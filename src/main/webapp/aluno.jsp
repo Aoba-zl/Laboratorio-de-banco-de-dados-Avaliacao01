@@ -82,7 +82,7 @@
 								<label for="floatingInput" class="font-text">Nome Social</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${aluno.dtNascimento}"></c:out>'>
+								<input type="date" min="1800-01-01" max="9999-01-01" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${aluno.dtNascimento}"></c:out>'>
 								<label for="floatingInput" class="font-text">Data de nascimento</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
@@ -94,15 +94,15 @@
 								<label for="floatingInput" class="font-text">Email Corporativo</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone1}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone2}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 							<div class="form-floating mb-3 input-height d-flex">
-								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${aluno.telefone}"></c:out>'>
+								<input type="text" class="form-control input-height" id="floatingInput" placeholder="Telefone" name="telefone" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${telefone3}"></c:out>'>
 								<label for="floatingInput" class="font-text">Telefone</label>
 							</div>
 						</div>
@@ -115,7 +115,7 @@
 								<label for="floatingInput" class="font-text">Instituição de Conclusão do Segundo Grau</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusao" value='<c:out value="${aluno.dtConclusao}"></c:out>'>
+								<input type="date" min="1800-01-01" max="9999-01-01" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusaoSegGrau" value='<c:out value="${aluno.dtConclusaoSegGrau}"></c:out>'>
 								<label for="floatingInput" class="font-text">Data de Conclusão</label>
 							</div>
 							<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
@@ -133,14 +133,13 @@
 								<h5>Curso</h5>
 							</div>
 							<div class="mb-3 input-height">
-								<select class="form-select" size="9" style="max-height: 208px;">
+								<select name="tabCursos" class="form-select" size="9" style="max-height: 208px;">
 									<option disabled selected>Selecione um curso</option>
-									<option value="1">test</option>
-									<option value="2">test2</option>
-									<option value="3">test3</option>
-									<option value="4">test4</option>
-									<option value="5">test5</option>
-									<option value="6">test6</option>
+									<c:if test="${not empty cursos}">
+										<c:forEach var="c" items="${cursos}">
+											<option value="${c.codigo}">${c.nome}</option>
+										</c:forEach>
+									</c:if>
 								</select>
 							</div>
 						</div>
@@ -154,7 +153,7 @@
 			</main>
 			<div>
 				<c:if test="${not empty erro}">
-					<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>
+					<h2 class="text-center"><b><c:out value="${erro}"/></b></h2>				
 				</c:if>
 			</div>
 			<div>
@@ -163,18 +162,15 @@
 				</c:if>
 			</div>
 			<div class="form-container m-auto border border-primary rounded-4" style="max-width: 1300px;">
-				<table class="table table-striped d-flex justify-content-center">
+				<table class="table table-striped">
 					<thead>
 						<tr class="text-center">
 							<th class="col">RA</th>
 							<th class="col">CPF</th>
 							<th class="col">Nome</th>
-							<th class="col">Nome Social</th>
 							<th class="col">Data de nascimento</th>
 							<th class="col">Email Pessoal</th>
-							<th class="col">Email Corporativo</th>
-							<th class="col">Telefone</th>
-							<th class="col" style="text-wrap: nowrap; max-width: 100px; overflow-x: hidden; text-overflow: ellipsis" title="Inst. de Concl. de Segundo grau">Inst. de Concl. de Segundo grau</th>
+							<th class="col" style="text-wrap: nowrap; max-width: 255px; overflow-x: hidden; text-overflow: ellipsis" title="Inst. de Concl. de Segundo grau">Inst. de Concl. de Segundo grau</th>
 							<th class="col">Data de conclusão</th>
 							<th class="col">Posição</th>
 							<th class="col">Pontuação</th>
@@ -187,13 +183,10 @@
 									<th scope="row"><c:out value="${a.ra}"/></th>
 									<th><c:out value="${a.cpf}"/></th>
 									<td><c:out value="${a.nome}"/></td>
-									<td><c:out value="${a.nomeSocial}"/></td>
 									<td><c:out value="${a.dtNascimento}"/></td>
 									<td><c:out value="${a.emailPessoal}"/></td>
-									<td><c:out value="${a.emailCorporativo}"/></td>
-									<td><c:out value="${a.telefone}"/></td>
 									<td><c:out value="${a.instituicaoConclusaoSegGrau}"/></td>
-									<td><c:out value="${a.dtConclusao}"/></td>
+									<td><c:out value="${a.dtConclusaoSegGrau}"/></td>
 									<td><c:out value="${a.vestibular.posicao}"/></td>
 									<td><c:out value="${a.vestibular.pontuacao}"/></td>
 								</tr>

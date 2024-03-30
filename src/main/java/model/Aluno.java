@@ -24,7 +24,7 @@ public class Aluno
 	private String emailPessoal;
 	private String emailCorporativo;
 	private LocalDate dtConclusaoSegGrau;
-	private String instuicaoConclusaoSegGrau;
+	private String instituicaoConclusaoSegGrau;
 	private List<Telefone> telefone;
 	private Vestibular vestibular;
 }
