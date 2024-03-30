@@ -137,7 +137,7 @@
 	function verificarHorarioConflito()
 	{
 		let linhas = document.querySelectorAll('#tabela-disciplinas tbody tr');
-		let horariosSelecionados = [];
+		let diaHorariosSelecionados = [];
 		let linhasConflito = [];
 		
 		linhas.forEach(function(linha)
@@ -145,12 +145,12 @@
 				let checkbox = linha.querySelector('.checkbox-disciplina');
 				if (checkbox.checked)
 				{
-					let diaSelecionado = ;
+					let dia = linha.querySelector('td:nth-child(4)').textContent.trim();
 					let horarioInicio = linha.querySelector('td:nth-child(5)').textContent.trim();
 					let horarioFim = linha.querySelector('td:nth-child(6)').textContent.trim();
-					let horario = [horarioInicio, horarioFim];
+					let diaHorario = [dia, horarioInicio, horarioFim];
 					
-					horariosSelecionados.push(horario);
+					diaHorariosSelecionados.push(diaHorario);
 				}
 			}
 		);
@@ -159,7 +159,7 @@
 		
 		
 		console.log("linha em conflito");
-        console.log(horariosSelecionados);
+        console.log(diaHorariosSelecionados);
 		
 	}
 	
