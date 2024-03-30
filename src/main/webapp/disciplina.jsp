@@ -55,7 +55,7 @@
 				</div>
 			</nav>
 		<main>
-			<form action="disciplina" method="post">
+			<form action="disciplina" method="post" name="formDisciplina">
 				<div class="rounded-4 border border-primary form-container m-auto mb-3">
 					<div class="form-floating d-flex mb-3">
 						<input type=text class="form-control input-height" id="floatingInput" placeholder="RA" name="ra" maxlength="9" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${ra}"></c:out>'>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
 					<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
-						<table class="table table-striped" >
+						<table class="table table-striped" id="tabela-disciplinas">
 							<thead>
 								<tr>
 									<th class="col">Selecionar Disciplina</th>
@@ -100,7 +100,7 @@
 										<tr>
 											<td>
 												<div>
-													<input type="checkbox" class="form-check-input" name="checkboxDisciplina" value='<c:out value="${d.codigo}"></c:out>' <c:if test="${emAndamento}">disabled</c:if>>
+													<input type="checkbox" class="form-check-input checkbox-disciplina" name="checkboxDisciplina" value="${d.codigo}" <c:if test="${emAndamento}">disabled</c:if>>
 												</div>
 											</td>
 											<th scope="row"><c:out value="${d.nome}"/></th>
@@ -124,4 +124,48 @@
 	</div>
 </div>
 </body>
+
+<script>
+	document.querySelectorAll('.checkbox-disciplina').forEach(t => 
+		t.addEventListener('change', function() 
+			{
+				verificarHorarioConflito()
+			}
+		)
+	);
+	
+	function verificarHorarioConflito()
+	{
+		let linhas = document.querySelectorAll('#tabela-disciplinas tbody tr');
+		let horariosSelecionados = [];
+		let linhasConflito = [];
+		
+		linhas.forEach(function(linha)
+			{
+				let checkbox = linha.querySelector('.checkbox-disciplina');
+				if (checkbox.checked)
+				{
+					let diaSelecionado = ;
+					let horarioInicio = linha.querySelector('td:nth-child(5)').textContent.trim();
+					let horarioFim = linha.querySelector('td:nth-child(6)').textContent.trim();
+					let horario = [horarioInicio, horarioFim];
+					
+					horariosSelecionados.push(horario);
+				}
+			}
+		);
+		
+		
+		
+		
+		console.log("linha em conflito");
+        console.log(horariosSelecionados);
+		
+	}
+	
+	
+	
+
+</script>
+
 </html>
