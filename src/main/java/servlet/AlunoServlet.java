@@ -108,11 +108,7 @@ public class AlunoServlet extends HttpServlet
 			aluno.setVestibular(vestibular);
 			for(int J = 0;J<3;J++) {
 				Telefone telefone = new Telefone();
-				if (telefones[J].trim() != "") {
-					telefone.setNumero(telefones[J]);
-				}else {
-					telefone.setNumero(" ");
-				}
+				telefone.setNumero(telefones[J]);
 				telefoneL.add(telefone);
 			}
 

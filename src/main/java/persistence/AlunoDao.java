@@ -155,20 +155,19 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
         if(saida.contains("Aluno cadastrado") || saida.contains("Aluno atualizado") ) {
 	        querySql = "EXEC sp_telefone_aluno ?,?,?,?,?";
 	        cs = connection.prepareCall(querySql);
-	        for (int J=1; J <=3;J++) {	
+	        int cont = 0;
+	        for (Telefone t : aluno.getTelefone()) {
+	        	cont++;
 	        	cs = connection.prepareCall(querySql); 
 		        cs.setString(1, acao);
 		        cs.setString(2, ra);
-		        cs.setString(3, aluno.getTelefone().get(J-1).getNumero());
-		        cs.setInt(4, J);
+		        String numero = t.getNumero();
+		        cs.setString(3, numero);
+		        cs.setInt(4, cont);
 		        cs.registerOutParameter(5, Types.VARCHAR);
 		        cs.execute();
-		        if (saida == null) {
-		        	saida = cs.getString(5);
-		        }
 	        }
 	        cs.close();
-	        
 	        connection.close();
         }
 		return saida;
