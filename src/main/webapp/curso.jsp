@@ -57,7 +57,7 @@
 							<th class="col">Nome</th>
 							<th class="col">Carga Horaria</th>
 							<th class="col">Sigla</th>
-							<th class="col">Última nota de particição do ENADE</th>
+							<th class="col">Nota do ENADE</th>
 						</tr>
 					</thead>
 					<tbody>
