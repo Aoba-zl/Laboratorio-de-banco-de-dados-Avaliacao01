@@ -97,7 +97,7 @@
 										</c:if>
 									</c:forEach>
 									<c:forEach var="d" items="${disciplinas}">
-										<tr>
+										<tr ref="${d.diaAula}">
 											<td>
 												<div>
 													<input type="checkbox" class="form-check-input checkbox-disciplina" name="checkboxDisciplina" value="${d.codigo}" <c:if test="${emAndamento}">disabled</c:if>>
@@ -148,24 +148,50 @@
 					let dia = linha.querySelector('td:nth-child(4)').textContent.trim();
 					let horarioInicio = linha.querySelector('td:nth-child(5)').textContent.trim();
 					let horarioFim = linha.querySelector('td:nth-child(6)').textContent.trim();
-					let diaHorario = [dia, horarioInicio, horarioFim];
+					let diaHorario = {dia, horarioInicio, horarioFim};
 					
 					diaHorariosSelecionados.push(diaHorario);
 				}
 			}
 		);
 		
+		const day_with_hour = e => 
+		{ 
+			let n = {};
+			n[e.dia] = { start: e.horarioInicio, end: e.horarioFim };
+			return n;
+ 		} // {Segunda: {start: 12, end: 13}}
 		
+		const merge_day = (a, [[k, e]]) => 
+		{ 
+			if (k in a)
+				a[k].push(e);
+			else a[k] = [e]
+			return a;
+ 		} // {Segunda: [{start: 12, end: 13}, {start: 12, end: 13}]}
 		
-		
-		console.log("linha em conflito");
-        console.log(diaHorariosSelecionados);
-		
+		if (diaHorariosSelecionados.length > 0)
+		{
+	        const button = document.querySelector("button[value=escolherDisciplina]")
+	        document.querySelectorAll("tr[ref]").forEach(e => e.classList.remove("table-danger"))
+	        button.removeAttribute("disabled")
+	        
+        	Object.entries(
+        		diaHorariosSelecionados
+	        		.map(day_with_hour)
+	        		.map(Object.entries)
+	        		.reduce(merge_day, {})
+	        ).sort(([k1, v1], [k2, v2]) => v1.start - v2.start)
+	        	.map(([k, v]) => [k, v.reduce((d1, d2) => d1.end < d2.start)])
+	        	.filter(([k, v]) => !v)
+	        	.forEach(([d, _]) => {
+	        		document.querySelectorAll("tr[ref='" + d + "']")
+	        			.forEach(e => e.classList.add("table-danger"))
+	        			
+	        		button.setAttribute("disabled", "")
+	        	});
+		}
 	}
-	
-	
-	
-
 </script>
 
 </html>
