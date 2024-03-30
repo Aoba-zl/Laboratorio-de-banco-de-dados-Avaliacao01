@@ -50,14 +50,14 @@ public class AlunoServlet extends HttpServlet
 		AlunoController alunoController = new AlunoController();
 		String cmd = request.getParameter("botao");
 		//Conteudo aluno
-		String ra = request.getParameter("ra");
-		String cpf = request.getParameter("cpf");
-		String nome = request.getParameter("nome");
-		String nomeSocial = request.getParameter("nomeSocial");
+		String ra = request.getParameter("ra").trim();
+		String cpf = request.getParameter("cpf").trim();
+		String nome = request.getParameter("nome").trim();
+		String nomeSocial = request.getParameter("nomeSocial").trim();
 		String dtNascimento = request.getParameter("dtNasc");
-		String emailPessoal = request.getParameter("emailPessoal");
-		String emailCorporativo = request.getParameter("emailCorporativo");
-		String instituicaoConclusaoSegGrau = request.getParameter("instituicaoConclusaoSegGrau");
+		String emailPessoal = request.getParameter("emailPessoal").trim();
+		String emailCorporativo = request.getParameter("emailCorporativo").trim();
+		String instituicaoConclusaoSegGrau = request.getParameter("instituicaoConclusaoSegGrau").trim();
 		String dtConclusao = request.getParameter("dtConclusaoSegGrau");
 		String cursoId = request.getParameter("tabCursos");	
 		
@@ -86,7 +86,11 @@ public class AlunoServlet extends HttpServlet
 				aluno.setDtNascimento(toLocalDate(dtNascimento));
 			}
 			aluno.setEmailPessoal(emailPessoal);
-			aluno.setEmailCorporativo(emailCorporativo);
+			if (!emailCorporativo.trim().contains("")) {
+				aluno.setEmailCorporativo(emailCorporativo);
+			} else {
+				aluno.setEmailCorporativo(null);
+			}
 			aluno.setInstituicaoConclusaoSegGrau(instituicaoConclusaoSegGrau);
 			if (dtConclusao != "") {
 				aluno.setDtConclusaoSegGrau(toLocalDate(dtConclusao));	
@@ -102,9 +106,13 @@ public class AlunoServlet extends HttpServlet
 				vestibular.setPosicao(posi);
 			}
 			aluno.setVestibular(vestibular);
-			for(int J =0;J<3;J++) {
+			for(int J = 0;J<3;J++) {
 				Telefone telefone = new Telefone();
-				telefone.setNumero(telefones[J]);
+				if (telefones[J].trim() != "") {
+					telefone.setNumero(telefones[J]);
+				}else {
+					telefone.setNumero(" ");
+				}
 				telefoneL.add(telefone);
 			}
 

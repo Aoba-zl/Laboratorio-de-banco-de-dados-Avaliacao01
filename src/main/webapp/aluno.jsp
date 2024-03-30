@@ -183,10 +183,10 @@
 									<th scope="row"><c:out value="${a.ra}"/></th>
 									<th><c:out value="${a.cpf}"/></th>
 									<td><c:out value="${a.nome}"/></td>
-									<td><c:out value="${a.dtNascimento}"/></td>
+									<td><c:out value="${a.dtNascimentoFormat}"/></td>
 									<td><c:out value="${a.emailPessoal}"/></td>
 									<td><c:out value="${a.instituicaoConclusaoSegGrau}"/></td>
-									<td><c:out value="${a.dtConclusaoSegGrau}"/></td>
+									<td><c:out value="${a.dtConclusaoSegGrauFormat}"/></td>
 									<td><c:out value="${a.vestibular.posicao}"/></td>
 									<td><c:out value="${a.vestibular.pontuacao}"/></td>
 								</tr>

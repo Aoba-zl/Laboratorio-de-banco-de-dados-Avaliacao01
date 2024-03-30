@@ -57,7 +57,9 @@ public class AlunoController
 		if (aluno.getNome().length() > 100 || aluno.getNome() == "") {return "Nome invalido!";}
 		if (aluno.getNomeSocial().length() > 100) {return "Nome Social invalido!";}
 		if (aluno.getEmailPessoal().length() > 100 || aluno.getEmailPessoal() == "" || !aluno.getEmailPessoal().contains("@") ||!aluno.getEmailPessoal().contains(".com")) {return "Email Pessoal invalido!";}
-		if (aluno.getEmailCorporativo().length() > 100) {return "Email Corporativo invalido!";}
+		if (aluno.getEmailCorporativo() != null) {
+			if (aluno.getEmailCorporativo().length() > 100) {return "Email Corporativo invalido!";}
+		}
 		if (aluno.getInstituicaoConclusaoSegGrau().length() > 100 || aluno.getInstituicaoConclusaoSegGrau() == "") {return "Nome da Instituição invalido!";}
 		if (aluno.getDtNascimento() == null) {return "Data de nascimento invalido!";}
 		if (aluno.getDtConclusaoSegGrau() == null) {return "Data de conclusão invalido!";}

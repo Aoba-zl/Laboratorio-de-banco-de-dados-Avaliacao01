@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -27,4 +28,16 @@ public class Aluno
 	private String instituicaoConclusaoSegGrau;
 	private List<Telefone> telefone;
 	private Vestibular vestibular;
+	
+	public String getDtNascimentoFormat()
+    {
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dtNascimento.format(formatacao);
+    }
+
+    public String getDtConclusaoSegGrauFormat()
+    {
+        DateTimeFormatter formatacao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.dtConclusaoSegGrau.format(formatacao);
+    }
 }
