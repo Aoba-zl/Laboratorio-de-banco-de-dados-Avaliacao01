@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import controller.AlunoController;
@@ -23,7 +24,6 @@ import controller.CursoController;
 public class AlunoServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String erro = "";
 		

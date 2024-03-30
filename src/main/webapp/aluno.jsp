@@ -82,7 +82,7 @@
 								<label for="floatingInput" class="font-text">Nome Social</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${aluno.dtNascimento}"></c:out>'>
+								<input type="date" min="1800-01-01" max="9999-01-01" class="form-control input-height" id="floatingInput" placeholder="Data de nascimento" name="dtNasc" value='<c:out value="${aluno.dtNascimento}"></c:out>'>
 								<label for="floatingInput" class="font-text">Data de nascimento</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
@@ -115,7 +115,7 @@
 								<label for="floatingInput" class="font-text">Instituição de Conclusão do Segundo Grau</label>
 							</div>
 							<div class="form-floating mb-3 input-height">
-								<input type="date" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusaoSegGrau" value='<c:out value="${aluno.dtConclusaoSegGrau}"></c:out>'>
+								<input type="date" min="1800-01-01" max="9999-01-01" class="form-control input-height" id="floatingInput" placeholder="Data de Conclusão" name="dtConclusaoSegGrau" value='<c:out value="${aluno.dtConclusaoSegGrau}"></c:out>'>
 								<label for="floatingInput" class="font-text">Data de Conclusão</label>
 							</div>
 							<div class="mb-3 d-flex justify-content-center align-items-center" style="height: 40px;">
