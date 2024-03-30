@@ -22,23 +22,6 @@ public class DisciplinaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-//		List<Disciplina> disciplinas = new ArrayList<>();
-//		DisciplinaController dControl = new DisciplinaController();
-//		String erro = "";
-//		
-//		try {			
-//			disciplinas = dControl.listar();
-//		} catch(SQLException | ClassNotFoundException e) {
-//			erro = e.getMessage();
-//		} finally {
-//			
-//			request.setAttribute("erro", erro);
-//			request.setAttribute("disciplinas", disciplinas);
-//			
-//			RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
-//			rd.forward(request, response);
-//		}
-		
 		RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
 		rd.forward(request, response);
 	}
