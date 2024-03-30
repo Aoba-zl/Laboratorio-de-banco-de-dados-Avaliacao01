@@ -108,7 +108,7 @@ private GenericDao gDao;
 	}
 
 	@Override
-	public List<Disciplina> listar() throws SQLException, ClassNotFoundException 
+	public List<Disciplina> listar() throws SQLException, ClassNotFoundException //Não utilizado por não ser necessário, há coisas a ser atualizada
 	{
 		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 		Connection c = gDao.getConnection();
