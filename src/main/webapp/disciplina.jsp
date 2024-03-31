@@ -1,11 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 
 
 <!-- Bootstrap -->
@@ -62,7 +62,6 @@
 						<label for="floatingInput" class="font-text">RA</label>
 						<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
 					</div>
-					<input type=hidden class="form-control input-height" placeholder="Matricula" name="matricula" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${matricula}"></c:out>'>
 				</div>
 				<div>
 					<c:if test="${not empty erro}">
@@ -84,7 +83,7 @@
 									<th class="col">Quantidade de Horas Semanais</th>
 									<th class="col" style="min-width: 120px;">Dia de aula</th>
 									<th class="col">Horario de Inicio</th>
-									<th class="col">Horario de Término</th>
+									<th class="col">Horario de TÃ©rmino</th>
 									<th class="col" style="min-width: 130px">Status</th>
 								</tr>
 							</thead>
@@ -109,6 +108,9 @@
 											<td><c:out value="${d.horarioInicio}"/></td>
 											<td><c:out value="${d.horarioFim}"/></td>
 											<td><c:out value="${d.umMatriculaDisciplina.status}"/></td>
+											<input type="hidden" name="dia" value="${d.diaAula}">
+        									<input type="hidden" name="horarioInicio" value="${d.horarioInicio}">
+        									<input type="hidden" name="horarioFim" value="${d.horarioFim}">
 										</tr>
 									</c:forEach>
 								</c:if>
@@ -174,8 +176,12 @@
         		diaHorariosSelecionados
 	        		.reduce(merge_day, {})
 	        ).sort(([k1, v1], [k2, v2]) => v1.start - v2.start)
-	        	.map(([k, v]) => [k, v.reduce((d1, d2) => d1.end < d2.start)])
-	        	.filter(([k, v]) => !v)
+	        	.map(([k, v]) => [
+	        		k,
+	        		v.map((d, idx, arr) => (idx + 1) == arr.length ? true : d.end < arr[idx + 1].start)
+	        			.some(test => !test)
+	        	])
+	        	.filter(([k, v]) => v)
 	        	.forEach(([d, _]) => {
 	        		document.querySelectorAll("tr[ref='" + d + "']")
 	        			.forEach(e => e.classList.add("table-danger"))

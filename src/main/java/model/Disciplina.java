@@ -42,5 +42,4 @@ public class Disciplina
 		
 		return md;
 	}
-	
 }

@@ -160,19 +160,35 @@ private GenericDao gDao;
 	public String escolheDisciplina(List<MatriculaDisciplina> mdList) throws SQLException, ClassNotFoundException 
 	{
 		Connection c = gDao.getConnection();
-		String sql = "{CALL sp_matricula_disciplina (?, ?, ?, ?)}";
-		CallableStatement cs = c.prepareCall(sql);
-		for(MatriculaDisciplina md : mdList)
-		{
-			cs.setString(1, md.getIdMatricula());
-			cs.setString(2, md.getCodigoDisciplina());
-			cs.setString(3, md.getStatus());
-			cs.registerOutParameter(4, Types.VARCHAR);
-			cs.execute();
-		}
-		String saida = cs.getString(4);
+		String sql = "";
+		String saida = "";
+		sql = "SELECT id_matricula FROM matricula_disciplina WHERE id_matricula = ? AND status = 'Em andamento.'";
+		PreparedStatement ps = c.prepareStatement(sql);
+		ps.setString(1, mdList.get(0).getIdMatricula());
+		ResultSet rs = ps.executeQuery();
 		
-		cs.close();
+		if(!rs.next())
+		{
+			sql = "{CALL sp_matricula_disciplina (?, ?, ?, ?)}";
+			CallableStatement cs = c.prepareCall(sql);
+			for(MatriculaDisciplina md : mdList)
+			{
+				cs.setString(1, md.getIdMatricula());
+				cs.setString(2, md.getCodigoDisciplina());
+				cs.setString(3, md.getStatus());
+				cs.registerOutParameter(4, Types.VARCHAR);
+				cs.execute();
+			}
+			saida = cs.getString(4);			
+			cs.close();
+		}
+		else
+		{
+			saida = "Matricula já possui disciplina em andamento!";
+		}
+		
+		ps.close();
+		rs.close();
 		c.close();
 		
 		return saida;

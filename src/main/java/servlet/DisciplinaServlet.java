@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Disciplina;
 import model.MatriculaDisciplina;
 
@@ -22,6 +23,8 @@ public class DisciplinaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		HttpSession session = request.getSession();
+		session.invalidate();
 		RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");
 		rd.forward(request, response);
 	}
@@ -29,10 +32,11 @@ public class DisciplinaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		//entrada
+		HttpSession session = request.getSession();
 		String cmd = request.getParameter("botao");
 		String ra = request.getParameter("ra");
 		String[] cod = request.getParameterValues("checkboxDisciplina");
-		String matricula = request.getParameter("matricula");
+		String matricula = "";
 		List<Disciplina> disciplinas = new ArrayList<>();
 		
 		
@@ -55,11 +59,24 @@ public class DisciplinaServlet extends HttpServlet {
 				MatriculaDisciplina md = new MatriculaDisciplina();
 				md = disciplinas.get(0).getUmMatriculaDisciplina();
 				matricula = md.getIdMatricula();
+				
+				session.setAttribute("disciplinas", disciplinas);
+				session.setAttribute("matricula", matricula);
 			}
 			if(cmd.contains("escolherDisciplina"))
 			{
 				if(!(cod == null))
 				{
+					matricula = (String) session.getAttribute("matricula");
+					disciplinas = (List<Disciplina>) session.getAttribute("disciplinas");
+					
+					if(dControl.verificaHorario(disciplinas, cod))
+					{
+						saida = "Há algum conflito de horário!";
+						return;
+					}
+					
+					
 					List<MatriculaDisciplina> mdList = new ArrayList<MatriculaDisciplina>();
 					for(String c : cod)
 					{
