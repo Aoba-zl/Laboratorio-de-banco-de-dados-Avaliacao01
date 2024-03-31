@@ -73,7 +73,7 @@
 						<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 					</c:if>
 				</div>
-				<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
+				<div class="form-container m-auto border border-primary rounded-4 mb-3" style="max-width: 900px; max-height: 690px;">
 					<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
 						<table class="table table-striped" id="tabela-disciplinas">
 							<thead>
