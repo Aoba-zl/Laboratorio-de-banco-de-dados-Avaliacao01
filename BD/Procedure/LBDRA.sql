@@ -4,7 +4,6 @@ DROP PROCEDURE sp_ra_aluno
 
 DROP PROCEDURE sp_gera_ra
 
-
 CREATE PROCEDURE sp_gera_ra (@ra CHAR(9) OUTPUT)
 AS
     DECLARE @r VARCHAR (20),
@@ -30,8 +29,4 @@ AS
 	BEGIN
 	    EXEC sp_gera_ra @ra OUTPUT
 	END
-    
-DECLARE @out CHAR(9)
-EXEC sp_ra_aluno @out OUTPUT 
-PRINT @out
     

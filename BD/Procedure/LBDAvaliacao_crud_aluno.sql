@@ -14,7 +14,6 @@ CREATE PROCEDURE sp_iud_aluno
 	@email_corporativo VARCHAR(100), 
 	@dt_conclusao_seg_grau DATE, 
 	@instituicao_conclusao_seg_grau VARCHAR(100),
-	@numero_telefone CHAR(9),
 	@pontuacao_vestibular DECIMAL(7, 2),
 	@posicao_vestibular INT,
 	@codigo_curso INT,
@@ -22,22 +21,22 @@ CREATE PROCEDURE sp_iud_aluno
 	@ra_novo CHAR(9) OUTPUT
 )
 AS
-	DECLARE @idade_valido BIT
-	EXEC sp_verifica_idade @dt_nascimento, @idade_valido OUTPUT
-	IF (@idade_valido = 1)
-	BEGIN 
-		DECLARE @cpf_valido INT
-		EXEC sp_verifica_cpf @cpf, @cpf_valido OUTPUT
-		IF (@cpf_valido = 0)
+	DECLARE @cpf_valido INT,
+			@idade_valido BIT,
+			@ra_existe	CHAR(9)
+	SET @ra_existe = (SELECT ra FROM aluno WHERE ra = @ra)
+	EXEC sp_verifica_cpf @cpf, @cpf_valido OUTPUT
+	IF (@cpf_valido = 0)
+	BEGIN
+		DECLARE	@cpf_existe CHAR(11)
+			SET @cpf_existe = (SELECT cpf FROM aluno WHERE cpf = @cpf)
+		IF (UPPER(@op) = 'I')
 		BEGIN
-			DECLARE @ra_existe CHAR(9),
-					@cpf_existe CHAR(11)
-				SET @ra_existe = (SELECT ra FROM aluno WHERE ra = @ra)
-				SET @cpf_existe = (SELECT cpf FROM aluno WHERE cpf = @cpf)
-			IF (UPPER(@op) = 'I')
-			BEGIN
-				IF (@cpf_existe IS NULL)
-				BEGIN 
+			IF (@cpf_existe IS NULL)
+			BEGIN 
+				EXEC sp_verifica_idade @dt_nascimento, @idade_valido OUTPUT
+				IF (@idade_valido = 1)
+				BEGIN
 					EXEC sp_ra_aluno @ra_novo OUTPUT
 					INSERT INTO aluno (ra, cpf, nome, nome_social, dt_nascimento, email_pessoal, email_corporativo, dt_conclusao_seg_grau, instituicao_conclusao_seg_grau)
 					VALUES 
@@ -46,16 +45,25 @@ AS
 					VALUES
 					(@ra_novo, @pontuacao_vestibular, @posicao_vestibular)
 					EXEC sp_matricula_aluno @ra_novo, @codigo_curso 
+					EXEC sp_id_matricula_disciplina @op, @ra_novo 
 					SET @saida = 'Aluno cadastrado!'
 				END
-				ELSE IF (@cpf_existe IS NOT NULL)
+				ELSE
 				BEGIN 
-					SET @saida = 'CPF já está cadastrado!'
+					SET @saida = 'Tem que ser maior de 15 anos!'
 				END
 			END
-			ELSE IF (UPPER(@op) = 'U')
+			ELSE IF (@cpf_existe IS NOT NULL)
+			BEGIN 
+				SET @saida = 'CPF já está cadastrado!'
+			END
+		END
+		ELSE IF (UPPER(@op) = 'U')
+		BEGIN
+			IF (@ra_existe IS NOT NULL)
 			BEGIN
-				IF (@ra_existe IS NOT NULL)
+				EXEC sp_verifica_idade @dt_nascimento, @idade_valido OUTPUT
+				IF (@idade_valido = 1)
 				BEGIN
 					IF ((SELECT cpf FROM aluno WHERE ra = @ra AND cpf = @cpf) IS NOT NULL OR (SELECT cpf FROM aluno WHERE cpf = @cpf) IS NULL)
 					BEGIN
@@ -76,77 +84,70 @@ AS
 						posicao = @posicao_vestibular
 						WHERE ra_aluno = @ra
 						SET @saida = 'Aluno atualizado!'
+						SET @ra_novo = @ra
 					END
 					ELSE
 					BEGIN 
 						SET @saida = 'CPF já existe no sistema!'
 					END
-					
 				END
-				ELSE 
+				ELSE
 				BEGIN 
-					SET @saida = 'Esse RA não existe!'
+					SET @saida = 'Tem que ser maior de 15 anos!'
 				END
 			END
-			ELSE IF (UPPER(@op) = 'D')
-			BEGIN
-				IF (@ra_existe IS NOT NULL)
-				BEGIN 
-					EXEC sp_telefone_aluno 'D', @ra, @numero_telefone, ''
-					DELETE FROM vestibular
-					WHERE ra_aluno = @ra
-					DELETE FROM aluno
-					WHERE ra = @ra
-					SET @saida = 'Aluno excluído!'
-				END
-				ELSE 
-				BEGIN 
-					SET @saida = 'Esse RA não existe!'
-				END
+			ELSE 
+			BEGIN 
+				SET @saida = 'Esse RA não existe!'
 			END
-		END
-		ELSE IF (@cpf_valido = 1)
-		BEGIN 
-			SET @saida = 'CPF inválido!'
-		END
-		ELSE IF (@cpf_valido = 2)
-		BEGIN 
-			SET @saida = 'CPF não pode ter todos os numeros iguais!'
 		END
 	END
-	ELSE
+	ELSE IF (@cpf_valido = 1)
 	BEGIN 
-		SET @saida = 'Tem que ser maior de 15 anos!'
+		SET @saida = 'CPF inválido!'
+	END
+	ELSE IF (@cpf_valido = 2)
+	BEGIN 
+		SET @saida = 'CPF não pode ter todos os numeros iguais!'
+	END
+	IF (UPPER(@op) = 'D')
+	BEGIN
+		IF (@ra_existe IS NOT NULL)
+		BEGIN 
+			EXEC sp_id_matricula_disciplina @op, @ra 
+			DELETE FROM telefone
+            WHERE ra_aluno = @ra
+            DELETE FROM matricula
+            WHERE ra_aluno = @ra
+            DELETE FROM vestibular
+            WHERE ra_aluno = @ra
+            DELETE FROM aluno
+            WHERE ra = @ra
+            SET @saida = 'Aluno excluído!'
+		END
+		ELSE 
+		BEGIN 
+			SET @saida = 'Esse RA não existe!'
+		END
 	END
 	
-	
-	
-DECLARE @out VARCHAR(100),
-		@ra_novo CHAR(9)
-EXEC sp_iud_aluno 
-'I', 
-'202418616', 
-'23854548079',
-'AAAA', 'piraAAAnh', 
-'2008-03-01', 
-'matheussss13@gmail.com', 
-NULL, 
-'2019-10-01', 
-'Capitão Sérgio Pimenta', 
-'941318918', 
-700.50, 
-11,
-1,
-@out OUTPUT,
-@ra_novo OUTPUT
-PRINT @out
-PRINT @ra_novo
+--DECLARE @out VARCHAR(100),
+--		@ra_novo CHAR(9)
+--EXEC sp_iud_aluno 
+--'I', 
+--'202412711', 
+--'30973601078',
+--'AAAA', 'BBBB', 
+--'2008-03-01', 
+--'ABCD123@gmail.com', 
+--NULL, 
+--'2019-10-01', 
+--'Capitão Sérgio Pimenta', 
+--700.50, 
+--11,
+--1,
+--@out OUTPUT,
+--@ra_novo OUTPUT
+--PRINT @out
+--PRINT @ra_novo
 
-
-SELECT * FROM aluno
-
-SELECT * FROM matricula
-
-SELECT * FROM curso
-
-SELECT * FROM telefone
