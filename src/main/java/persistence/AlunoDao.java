@@ -46,7 +46,6 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
 		v.posicao 
 		FROM aluno a, telefone t, vestibular v
 		WHERE a.ra = t.ra_aluno AND a.ra = v.ra_aluno AND a.ra = ?
-		ORDER BY t.id
 				""";
 		PreparedStatement preparedStatement = connection.prepareStatement(querySql);
 		preparedStatement.setString(1, a.getRa());
@@ -152,27 +151,81 @@ public class AlunoDao implements ICrudDao<Aluno>, ICrudIud<Aluno,Curso>
         String ra = cs.getString(15);
         cs.close();
         
-        if(saida.contains("Aluno cadastrado") || saida.contains("Aluno atualizado") ) {
-	        querySql = "EXEC sp_telefone_aluno ?,?,?,?,?";
+        if(saida.contains("Aluno cadastrado")) {
+	        querySql = "EXEC sp_telefone_aluno ?,?,?,NULL,?";
 	        cs = connection.prepareCall(querySql);
-	        int cont = 0;
 	        for (Telefone t : aluno.getTelefone()) {
-	        	cont++;
 	        	cs = connection.prepareCall(querySql); 
 		        cs.setString(1, acao);
 		        cs.setString(2, ra);
 		        String numero = t.getNumero();
 		        cs.setString(3, numero);
-		        cs.setInt(4, cont);
-		        cs.registerOutParameter(5, Types.VARCHAR);
+		        cs.registerOutParameter(4, Types.VARCHAR);
 		        cs.execute();
 	        }
 	        cs.close();
 	        connection.close();
         }
+        if (saida.contains("Aluno atualizado")) {
+        	updateTel(aluno);
+        }
 		return saida;
 	}
+	private void updateTel(Aluno aluno) throws ClassNotFoundException, SQLException {
+		Connection connection = gDao.getConnection();
+		String querySql = "SELECT * FROM telefone WHERE ra_aluno = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(querySql);
+		preparedStatement.setString(1, aluno.getRa());
+		ResultSet result = preparedStatement.executeQuery();
+		List<Telefone> chave = new ArrayList<>();
+		while(result.next()) {
+			Telefone tel = new Telefone(result.getString("numero"));
+			chave.add(tel);
+		}
+		preparedStatement.close();
 
+		String saida = "";
+        int max = aluno.getTelefone().size();
+        if (chave.size() > max) {
+            max = chave.size();
+        }
+        int cont = 0;
+        while(cont != max) {
+        	cont = 0;
+            for (int J=0;J<max;J++) {
+            	String numeroAtual = aluno.getTelefone().get(J).getNumero();
+	            querySql = "EXEC sp_telefone_aluno ?,?,?,?,?";
+	            CallableStatement cs = connection.prepareCall(querySql);
+	            cs.setString(1, "U");
+	            cs.setString(2, aluno.getRa());
+	            if (J+1 > aluno.getTelefone().size() || numeroAtual == "" ) {
+	                cs.setString(3, null);
+	                numeroAtual = null;
+	            }else {
+	                cs.setString(3, numeroAtual);
+	            }
+	            if (J+1 > chave.size()) {
+	                cs.setString(4, null);
+	            }else {
+	                cs.setString(4, chave.get(J).getNumero());
+	            }
+	            cs.registerOutParameter(5, Types.VARCHAR);
+		        cs.execute();
+		        saida = cs.getString(5);
+                switch (saida) {
+                case "cadastrado" : chave.add(aluno.getTelefone().get(J)) ;
+                break;
+                case "excluido" : chave.remove(J);
+                				  aluno.getTelefone().remove(J);
+                                  max--;
+                break;
+                case "erro" : cont++;
+                break;
+                }
+            }
+        }
+	}
+	
 	private java.sql.Date toSQLDate(LocalDate data){
 		if (data != null) {
 			java.sql.Date sqlDate = java.sql.Date.valueOf(data);
