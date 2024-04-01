@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import controller.AlunoController;
@@ -75,7 +74,7 @@ public class AlunoServlet extends HttpServlet
 		List<Curso> cursos = new ArrayList<>();
 		Curso curso = new Curso();
 		
-		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir")) {
+		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir") || cmd == "X") {
 			aluno.setRa(ra);
 		}
 		if (cmd.contains("Cadastrar")|| cmd.contains("Alterar")) {
@@ -106,19 +105,20 @@ public class AlunoServlet extends HttpServlet
 				vestibular.setPosicao(posi);
 			}
 			aluno.setVestibular(vestibular);
-			for(int J = 0;J<3;J++) {
-				Telefone telefone = new Telefone();
-				telefone.setNumero(telefones[J]);
-				telefoneL.add(telefone);
-			}
 
-			aluno.setTelefone(telefoneL);
 			if (cursoId != null) {
 				curso.setCodigo(Integer.parseInt(cursoId));
 			} else {
 				curso.setCodigo(-1);
 			}
-
+			if (cmd.contains("Buscar") || cmd.contains("Alterar")) {
+				for(int J = 0;J<3;J++) {
+					Telefone telefone = new Telefone();
+					telefone.setNumero(telefones[J]);
+					telefoneL.add(telefone);
+				}
+			}
+			aluno.setTelefone(telefoneL);
 		}
 		try {
 			if (cmd.contains("Cadastrar")) {
@@ -144,9 +144,7 @@ public class AlunoServlet extends HttpServlet
 			}
 			if (cmd.contains("Buscar")) {
 				aluno = alunoController.buscar(aluno);
-				if (aluno.getCpf() == null) {
-					saida = "RA não existe";
-				}
+				
 			}
 			cursos = getCursos(cursos);
 			alunos = getAlunos(alunos);
@@ -159,14 +157,13 @@ public class AlunoServlet extends HttpServlet
 			request.setAttribute("alunos",alunos);
 			request.setAttribute("cursos",cursos);
 			if (cmd.contains("Buscar") && aluno.getTelefone() != null) {
-				request.setAttribute("telefone1",aluno.getTelefone().get(0).getNumero());
-				request.setAttribute("telefone2",aluno.getTelefone().get(1).getNumero());
-				request.setAttribute("telefone3",aluno.getTelefone().get(2).getNumero());
+				request.setAttribute("telefones",aluno.getTelefone());
 			}
 			RequestDispatcher rd = request.getRequestDispatcher("aluno.jsp");
 			rd.forward(request, response);
 		}
 	}
+
 	private LocalDate toLocalDate (String data) {
 		LocalDate localdate = LocalDate.parse(data);
 		return localdate;

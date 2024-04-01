@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Aluno;
 import model.Curso;
+import model.Telefone;
 import model.Vestibular;
 import persistence.AlunoDao;
 import persistence.GenericDao;
@@ -12,7 +13,7 @@ import persistence.GenericDao;
 public class AlunoController 
 {
 	public String cadastrar (Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
-		String saida = checkA(aluno,curso);
+		String saida = checkAluno(aluno,curso);
 		if (saida.contains("correto")) {
 			GenericDao gDao = new GenericDao();
 			AlunoDao aDao = new AlunoDao(gDao);
@@ -21,11 +22,12 @@ public class AlunoController
 		return saida;
 	}
 	public String alterar(Aluno aluno,Curso curso) throws SQLException, ClassNotFoundException {
-		String saida = checkA(aluno);
+		String saida = checkAluno(aluno);
 		if (saida.contains("correto")) {
 			GenericDao gDao = new GenericDao();
 			AlunoDao aDao = new AlunoDao(gDao);
 			saida = aDao.iud("U", aluno,curso);
+			
 		}
 		return saida;
 	}
@@ -52,7 +54,17 @@ public class AlunoController
 		AlunoDao aDao = new AlunoDao(gDao);
 		return alunos = aDao.listar();
 	}
-	private String checkA(Aluno aluno) {
+
+	private String checkTel (Aluno aluno) {
+		String todo="";
+		for (Telefone t : aluno.getTelefone()) {
+			if (t.getNumero().length() < 8 && t.getNumero() != "" ) {return "Telefone invalido";}
+			todo = todo + t.getNumero();
+		}
+		if (todo.length() <1) {return "Ao menos 1 telefone deve ser preenchido";}
+		return "correto";
+	}
+	private String checkAluno(Aluno aluno) {
 		if (aluno.getCpf().length() != 11) 	{return "CPF invalido!";}
 		if (aluno.getNome().length() > 100 || aluno.getNome() == "") {return "Nome invalido!";}
 		if (aluno.getNomeSocial().length() > 100) {return "Nome Social invalido!";}
@@ -65,11 +77,13 @@ public class AlunoController
 		if (aluno.getDtConclusaoSegGrau() == null) {return "Data de conclusão invalido!";}
 		if (aluno.getVestibular().getPontuacao() < 0) {return "Pontuação invalida!";}	
 		if (aluno.getVestibular().getPosicao() < 1) {return "Posição invalida!";}
+		String saida = checkTel(aluno);
+		if (saida != "correto") {return saida;}
 		return "correto";
 	}
-	private String checkA(Aluno aluno, Curso curso) {
+	private String checkAluno(Aluno aluno, Curso curso) {
 		String saida;
-		saida = checkA(aluno);
+		saida = checkAluno(aluno);
 		if (saida.contains("correto") && curso.getCodigo() == -1) {
 			saida = "Curso não selecionado";
 		}
