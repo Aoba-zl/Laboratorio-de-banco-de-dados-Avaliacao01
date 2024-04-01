@@ -62,6 +62,7 @@ public class DisciplinaController
 				{
 					Pair<LocalTime, LocalTime> lt = Pair.of(d.getHorarioInicio(), d.getHorarioFim());
 					mapDisciplinaListCheck.computeIfAbsent(d.getDiaAula(), k -> new ArrayList<>()).add(lt);
+					break;
 				}
 			}
 		}

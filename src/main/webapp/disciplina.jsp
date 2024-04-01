@@ -115,7 +115,7 @@
 						</table>
 					</div>
 					<div class="form-container m-auto" style="max-width: 900px;">
-						<button class="btn btn-success" name="botao" value="escolherDisciplina">Escolher Disciplina</button>
+						<button class="btn btn-success" name="botao" value="escolherDisciplina" <c:if test="${emAndamento}">disabled</c:if>>Escolher Disciplina</button>
 					</div>
 				</div>
 			</form>
