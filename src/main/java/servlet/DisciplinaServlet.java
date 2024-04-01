@@ -106,7 +106,6 @@ public class DisciplinaServlet extends HttpServlet {
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
 			request.setAttribute("ra", ra);
-			request.setAttribute("matricula", matricula);
 			request.setAttribute("disciplinas", disciplinas);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("disciplina.jsp");

@@ -108,9 +108,6 @@
 											<td><c:out value="${d.horarioInicio}"/></td>
 											<td><c:out value="${d.horarioFim}"/></td>
 											<td><c:out value="${d.umMatriculaDisciplina.status}"/></td>
-											<input type="hidden" name="dia" value="${d.diaAula}">
-        									<input type="hidden" name="horarioInicio" value="${d.horarioInicio}">
-        									<input type="hidden" name="horarioFim" value="${d.horarioFim}">
 										</tr>
 									</c:forEach>
 								</c:if>
