@@ -74,7 +74,7 @@ public class AlunoServlet extends HttpServlet
 		List<Curso> cursos = new ArrayList<>();
 		Curso curso = new Curso();
 		
-		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir") || cmd == "X") {
+		if (cmd.contains("Buscar") || cmd.contains("Alterar") || cmd.contains("Excluir")) {
 			aluno.setRa(ra);
 		}
 		if (cmd.contains("Cadastrar")|| cmd.contains("Alterar")) {
@@ -111,12 +111,10 @@ public class AlunoServlet extends HttpServlet
 			} else {
 				curso.setCodigo(-1);
 			}
-			if (cmd.contains("Buscar") || cmd.contains("Alterar")) {
-				for(int J = 0;J<3;J++) {
-					Telefone telefone = new Telefone();
-					telefone.setNumero(telefones[J]);
-					telefoneL.add(telefone);
-				}
+			for(int J = 0;J<3;J++) {
+				Telefone telefone = new Telefone();
+				telefone.setNumero(telefones[J]);
+				telefoneL.add(telefone);
 			}
 			aluno.setTelefone(telefoneL);
 		}

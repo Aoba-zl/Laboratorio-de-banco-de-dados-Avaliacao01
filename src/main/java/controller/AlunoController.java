@@ -27,7 +27,6 @@ public class AlunoController
 			GenericDao gDao = new GenericDao();
 			AlunoDao aDao = new AlunoDao(gDao);
 			saida = aDao.iud("U", aluno,curso);
-			
 		}
 		return saida;
 	}
