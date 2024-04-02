@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Curso;
-import model.Disciplina;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.CursoController;
-import controller.DisciplinaController;
 
+/**
+ * Essa Classe é responsável por fazer o request do .jsp do tipo curso.
+ */
 @WebServlet("/curso")
 public class CursoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
