@@ -1,11 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 
 
 <!-- Bootstrap -->
@@ -57,7 +56,7 @@
 							<th class="col">Nome</th>
 							<th class="col">Carga Horaria</th>
 							<th class="col">Sigla</th>
-							<th class="col">Última nota de particição do ENADE</th>
+							<th class="col">Nota do ENADE</th>
 						</tr>
 					</thead>
 					<tbody>

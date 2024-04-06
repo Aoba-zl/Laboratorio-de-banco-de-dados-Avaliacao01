@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -26,8 +27,8 @@ public class Aluno
 	private String emailCorporativo;
 	private LocalDate dtConclusaoSegGrau;
 	private String instituicaoConclusaoSegGrau;
-	private List<Telefone> telefone;
-	private Vestibular vestibular;
+	private List<Telefone> telefone; // = new ArrayList<>(); TODO
+	private Vestibular vestibular; // = new Vestibular(); TODO
 	
 	public String getDtNascimentoFormat()
     {

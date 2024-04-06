@@ -23,9 +23,3 @@ AS
 		SET @valida = 0
 	END
 
-
-DECLARE @out BIT
-EXEC sp_verifica_idade '2009-03-01', @out OUTPUT
-PRINT @out
-	
-	

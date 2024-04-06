@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;

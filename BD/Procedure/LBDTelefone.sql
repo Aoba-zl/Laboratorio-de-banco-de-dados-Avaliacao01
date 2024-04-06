@@ -2,13 +2,20 @@ USE matricula
 
 DROP PROCEDURE sp_telefone_aluno 
 
-CREATE PROCEDURE sp_telefone_aluno (@op CHAR(1), @ra AS CHAR(9), @numero AS CHAR(9), @id AS INT)
+CREATE PROCEDURE sp_telefone_aluno (@op CHAR(1), @ra AS CHAR(9), @numero AS CHAR(9), @id AS INT, @saida AS VARCHAR(50) OUTPUT)
 AS
 	IF (@op = 'I')
 	BEGIN
-		INSERT INTO telefone
-		VALUES
-		(@ra, @numero, @id)
+		IF ((SELECT numero FROM telefone WHERE numero = @numero) IS NULL)
+		BEGIN 
+			INSERT INTO telefone
+			VALUES
+			(@ra, @numero, @id)
+		END
+		ELSE
+		BEGIN
+			SET @saida = 'Número de telefone já cadastrado!'
+		END
 	END
 	ELSE IF (@op = 'U')
 	BEGIN
@@ -20,12 +27,3 @@ AS
 	BEGIN
 		DELETE telefone WHERE ra_aluno = @ra
 	END
-
-
-EXEC sp_telefone_aluno 'I', '202416717', '941318911', 2
-
-
-
-SELECT * FROM aluno
-
-SELECT * FROM telefone

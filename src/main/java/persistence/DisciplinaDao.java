@@ -12,15 +12,31 @@ import java.util.List;
 import model.Disciplina;
 import model.MatriculaDisciplina;
 
+/**
+ * Essa Classe é responsável por mexer diretamente no banco de dados da entidade Disciplina.
+ */
 public class DisciplinaDao implements ICrudDao<Disciplina>
 {
-private GenericDao gDao;
+	private GenericDao gDao;
 	
+	/**
+	 * Método responsável por obter a conexão do banco de dados.
+	 * 
+	 * @param gDao Um objeto do tipo GenericDao com o tipo de conexão
+	 */
 	public DisciplinaDao(GenericDao gDao)
 	{
 		this.gDao = gDao;
 	}
 	
+	/**
+	 * Método responsável por retornar uma lista de disciplina, buscado por códigos SQL no banco de dados, através do RA do aluno.
+	 * 
+	 * @param ra Uma String contendo o RA do aluno
+	 * @return Uma lista de objetos de disciplina
+	 * @throws SQLException Exceção lançada se houver problema com SQL
+	 * @throws ClassNotFoundException Exceção lançada se houver erro ao tentar encontrar a classe
+	 */
 	public List<Disciplina> consultarAlunoDisciplina(String ra) throws SQLException, ClassNotFoundException
 	{
 		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
@@ -157,22 +173,46 @@ private GenericDao gDao;
 		return disciplinas;
 	}
 
+	/**
+	 * Método responsável por atualizar as disciplinas escolhidas pelo usuários, colocando-os com "Em andamento." nos status da tabela do banco de dados.
+	 * 
+	 * @param mdList Lista de objetos do tipo disciplina
+	 * @return Uma String de saída para o tipo de resposta que o banco de dados retornou
+	 * @throws SQLException Exceção lançada se houver problema com SQL
+	 * @throws ClassNotFoundException Exceção lançada se houver erro ao tentar encontrar a classe
+	 */
 	public String escolheDisciplina(List<MatriculaDisciplina> mdList) throws SQLException, ClassNotFoundException 
 	{
 		Connection c = gDao.getConnection();
-		String sql = "{CALL sp_matricula_disciplina (?, ?, ?, ?)}";
-		CallableStatement cs = c.prepareCall(sql);
-		for(MatriculaDisciplina md : mdList)
-		{
-			cs.setString(1, md.getIdMatricula());
-			cs.setString(2, md.getCodigoDisciplina());
-			cs.setString(3, md.getStatus());
-			cs.registerOutParameter(4, Types.VARCHAR);
-			cs.execute();
-		}
-		String saida = cs.getString(4);
+		String sql = "";
+		String saida = "";
+		sql = "SELECT id_matricula FROM matricula_disciplina WHERE id_matricula = ? AND status = 'Em andamento.'";
+		PreparedStatement ps = c.prepareStatement(sql);
+		ps.setString(1, mdList.get(0).getIdMatricula());
+		ResultSet rs = ps.executeQuery();
 		
-		cs.close();
+		if(!rs.next())
+		{
+			sql = "{CALL sp_matricula_disciplina (?, ?, ?, ?)}";
+			CallableStatement cs = c.prepareCall(sql);
+			for(MatriculaDisciplina md : mdList)
+			{
+				cs.setString(1, md.getIdMatricula());
+				cs.setString(2, md.getCodigoDisciplina());
+				cs.setString(3, md.getStatus());
+				cs.registerOutParameter(4, Types.VARCHAR);
+				cs.execute();
+			}
+			saida = cs.getString(4);			
+			cs.close();
+		}
+		else
+		{
+			saida = "Matricula já possui disciplina em andamento!";
+		}
+		
+		ps.close();
+		rs.close();
 		c.close();
 		
 		return saida;

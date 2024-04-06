@@ -1,11 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 
 
 <!-- Bootstrap -->
@@ -62,7 +61,6 @@
 						<label for="floatingInput" class="font-text">RA</label>
 						<button class="btn btn-outline-secondary" name="botao" value="Buscar">Buscar</button>
 					</div>
-					<input type=hidden class="form-control input-height" placeholder="Matricula" name="matricula" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" value='<c:out value="${matricula}"></c:out>'>
 				</div>
 				<div>
 					<c:if test="${not empty erro}">
@@ -74,7 +72,7 @@
 						<h2 class="text-center"><b><c:out value="${saida}"/></b></h2>
 					</c:if>
 				</div>
-				<div class="form-container m-auto border border-primary rounded-4" style="max-width: 900px; max-height: 690px;">
+				<div class="form-container m-auto border border-primary rounded-4 mb-3" style="max-width: 900px; max-height: 690px;">
 					<div class="form-container m-auto" style="max-width: 900px; max-height: 600px; overflow-y: scroll;">
 						<table class="table table-striped" id="tabela-disciplinas">
 							<thead>
@@ -84,7 +82,7 @@
 									<th class="col">Quantidade de Horas Semanais</th>
 									<th class="col" style="min-width: 120px;">Dia de aula</th>
 									<th class="col">Horario de Inicio</th>
-									<th class="col">Horario de Término</th>
+									<th class="col">Horario de TÃ©rmino</th>
 									<th class="col" style="min-width: 130px">Status</th>
 								</tr>
 							</thead>
@@ -97,7 +95,7 @@
 										</c:if>
 									</c:forEach>
 									<c:forEach var="d" items="${disciplinas}">
-										<tr>
+										<tr ref="${d.diaAula}">
 											<td>
 												<div>
 													<input type="checkbox" class="form-check-input checkbox-disciplina" name="checkboxDisciplina" value="${d.codigo}" <c:if test="${emAndamento}">disabled</c:if>>
@@ -116,7 +114,7 @@
 						</table>
 					</div>
 					<div class="form-container m-auto" style="max-width: 900px;">
-						<button class="btn btn-success" name="botao" value="escolherDisciplina">Escolher Disciplina</button>
+						<button class="btn btn-success" name="botao" value="escolherDisciplina" <c:if test="${emAndamento}">disabled</c:if>>Escolher Disciplina</button>
 					</div>
 				</div>
 			</form>
@@ -148,7 +146,7 @@
 					let dia = linha.querySelector('td:nth-child(4)').textContent.trim();
 					let horarioInicio = linha.querySelector('td:nth-child(5)').textContent.trim();
 					let horarioFim = linha.querySelector('td:nth-child(6)').textContent.trim();
-					let diaHorario = [dia, horarioInicio, horarioFim];
+					let diaHorario = {dia, horarioInicio, horarioFim};
 					
 					diaHorariosSelecionados.push(diaHorario);
 				}
@@ -156,16 +154,38 @@
 		);
 		
 		
+		const merge_day = (a, e) => 
+		{ 
+			if (e.dia in a)
+				a[e.dia].push({start: e.horarioInicio, end: e.horarioFim});
+			else a[e.dia] = [{start: e.horarioInicio, end: e.horarioFim}]
+			return a;
+ 		} // {Segunda: [{start: 12, end: 13}, {start: 12, end: 13}]}
 		
-		
-		console.log("linha em conflito");
-        console.log(diaHorariosSelecionados);
-		
+		if (diaHorariosSelecionados.length > 0)
+		{
+	        const button = document.querySelector("button[value=escolherDisciplina]")
+	        document.querySelectorAll("tr[ref]").forEach(e => e.classList.remove("table-danger"))
+	        button.removeAttribute("disabled")
+	        
+        	Object.entries(
+        		diaHorariosSelecionados
+	        		.reduce(merge_day, {})
+	        ).sort(([k1, v1], [k2, v2]) => v1.start - v2.start)
+	        	.map(([k, v]) => [
+	        		k,
+	        		v.map((d, idx, arr) => (idx + 1) == arr.length ? true : d.end < arr[idx + 1].start)
+	        			.some(test => !test)
+	        	])
+	        	.filter(([k, v]) => v)
+	        	.forEach(([d, _]) => {
+	        		document.querySelectorAll("tr[ref='" + d + "']")
+	        			.forEach(e => e.classList.add("table-danger"))
+	        			
+	        		button.setAttribute("disabled", "")
+	        	});
+		}
 	}
-	
-	
-	
-
 </script>
 
 </html>
