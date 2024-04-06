@@ -24,5 +24,5 @@ public class Matricula
 	private String semestreIngresso;
 	private LocalDate anoLimiteGraduacao;
 	private LocalDate anoIngresso;
-	private List<MatriculaDisciplina> md = new ArrayList<>(); // TODO sem new ArrayList
+	private List<MatriculaDisciplina> md;
 }

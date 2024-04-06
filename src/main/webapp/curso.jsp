@@ -66,7 +66,7 @@
 									<th scope="row"><c:out value="${cr.nome}"/></th>
 									<td><c:out value="${cr.cargaHoraria}"/></td>
 									<td><c:out value="${cr.sigla}"/></td>
-									<td><c:out value="${cr.ultNotaParticipacaoEnade}"/></td>
+									<td><c:out value="${cr.notaEnade}"/></td>
 								</tr>
 							</c:forEach>
 						</c:if>

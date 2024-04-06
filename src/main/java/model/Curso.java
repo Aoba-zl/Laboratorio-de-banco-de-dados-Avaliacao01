@@ -19,7 +19,7 @@ public class Curso
 	private String nome;
 	private int cargaHoraria;
 	private String sigla;
-	private float ultNotaParticipacaoEnade;
+	private float notaEnade;
 	private List<Matricula> matricula;
 	private List<Disciplina> disciplina;
 }

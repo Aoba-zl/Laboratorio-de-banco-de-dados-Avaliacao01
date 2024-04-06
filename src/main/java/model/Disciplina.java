@@ -24,10 +24,8 @@ public class Disciplina
 	private String diaAula;
 	private LocalTime horarioInicio;
 	private LocalTime horarioFim;
-	private List<Conteudo> conteudo;
+	private List<Conteudo> conteudo = new ArrayList<>();
 	private List<MatriculaDisciplina> matriculaDisciplina;
-	
-//	public MatriculaDisciplina 
 	
 	public void setUmMatriculaDisciplina (MatriculaDisciplina md)
 	{

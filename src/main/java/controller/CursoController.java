@@ -36,7 +36,7 @@ public class CursoController
 	{
 		GenericDao gDao = new GenericDao();
 		CursoDao cDao = new CursoDao(gDao);
-		List<Curso> cursos = cDao.listarCompleto();
+		List<Curso> cursos = cDao.listar();
 		return cursos;
 	}
 }

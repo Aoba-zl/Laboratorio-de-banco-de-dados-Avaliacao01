@@ -27,8 +27,8 @@ public class Aluno
 	private String emailCorporativo;
 	private LocalDate dtConclusaoSegGrau;
 	private String instituicaoConclusaoSegGrau;
-	private List<Telefone> telefone; // = new ArrayList<>(); TODO
-	private Vestibular vestibular; // = new Vestibular(); TODO
+	private List<Telefone> telefone = new ArrayList<>();
+	private Vestibular vestibular = new Vestibular();
 	
 	public String getDtNascimentoFormat()
     {
