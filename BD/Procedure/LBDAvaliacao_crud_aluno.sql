@@ -130,24 +130,4 @@ AS
 			SET @saida = 'Esse RA não existe!'
 		END
 	END
-	
---DECLARE @out VARCHAR(100),
---		@ra_novo CHAR(9)
---EXEC sp_iud_aluno 
---'I', 
---'202412711', 
---'30973601078',
---'AAAA', 'BBBB', 
---'2008-03-01', 
---'ABCD123@gmail.com', 
---NULL, 
---'2019-10-01', 
---'Capitão Sérgio Pimenta', 
---700.50, 
---11,
---1,
---@out OUTPUT,
---@ra_novo OUTPUT
---PRINT @out
---PRINT @ra_novo
 
