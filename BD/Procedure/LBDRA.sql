@@ -1,9 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_ra_aluno
-
-DROP PROCEDURE sp_gera_ra
-
 CREATE PROCEDURE sp_gera_ra (@ra CHAR(9) OUTPUT)
 AS
     DECLARE @r VARCHAR (20),

@@ -1,7 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_matricula_disciplina
-
 CREATE PROCEDURE sp_matricula_disciplina (@matricula CHAR(11), @codigo INT, @status VARCHAR(50), @saida VARCHAR(50) OUTPUT)
 AS
 	DECLARE @matricula_existe CHAR(11)

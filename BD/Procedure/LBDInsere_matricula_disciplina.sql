@@ -1,7 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_id_matricula_disciplina
-
 CREATE PROCEDURE sp_id_matricula_disciplina(@op CHAR(1), @ra CHAR(9))
 AS
 	IF (@op = 'I')

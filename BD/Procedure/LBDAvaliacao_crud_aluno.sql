@@ -1,7 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_iud_aluno
-
 CREATE PROCEDURE sp_iud_aluno
 (
 	@op CHAR(1), 

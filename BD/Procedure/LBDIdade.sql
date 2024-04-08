@@ -1,7 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_verifica_idade
-
 CREATE PROCEDURE sp_verifica_idade (@dt_nascimento AS DATE, @valida BIT OUTPUT)
 AS
 	DECLARE @idade INT

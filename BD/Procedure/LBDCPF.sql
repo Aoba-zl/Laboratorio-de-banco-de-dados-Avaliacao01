@@ -1,7 +1,5 @@
 USE matricula
 
-DROP PROCEDURE sp_verifica_cpf
-
 CREATE PROCEDURE sp_verifica_cpf 
 (
 	@cpf CHAR(11), 
