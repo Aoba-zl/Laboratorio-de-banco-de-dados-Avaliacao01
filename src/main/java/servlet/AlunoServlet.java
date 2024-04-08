@@ -144,11 +144,17 @@ public class AlunoServlet extends HttpServlet
 				aluno = alunoController.buscar(aluno);
 				
 			}
-			cursos = getCursos(cursos);
-			alunos = getAlunos(alunos);
+			
 		} catch (SQLException | ClassNotFoundException e) {
 			erro = e.getMessage();
 		}finally {
+			try {
+				cursos = getCursos(cursos);
+				alunos = getAlunos(alunos);
+			} catch (SQLException | ClassNotFoundException e) {
+				erro = e.getMessage();
+			}
+			
 			request.setAttribute("saida", saida);
 			request.setAttribute("erro", erro);
 			request.setAttribute("aluno",aluno);
