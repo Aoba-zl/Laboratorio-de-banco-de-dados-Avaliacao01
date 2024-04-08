@@ -1,5 +1,19 @@
 # Laboratorio de banco de dados - Avaliacao 1
 
+## Requisitos do sistema:
+![image](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/f2803999-2e6a-4b9d-b444-1ad52e0c3ad6)
+
+## Diagrama Caso de Uso:
+![Caso de uso](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/7b7ce8da-e40f-4503-851b-2213d4b692c7)
+
+## Diagrama de Classe:
+![LBDAvaliacao diagrama de classe](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/fe07deb8-f626-4d1f-bd1c-26cdd3ce0d22)
+
+## Diagrama de Banco de Dados:
+![LBDSistemaAcademicoFaculdade](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/5a419e82-5273-490b-88c6-71c1cb8b206d)
+
+---
+
 ## Engenharia de Software:
 - [x] Requisitos
 - [x] Caso de uso
@@ -34,15 +48,3 @@
     - [x] Aluno
     - [x] Curso
     - [x] Disciplina (Aluno->Disciplina[grade])
-
----
-
-## Diagrama Caso de Uso:
-![Caso de uso](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/7b7ce8da-e40f-4503-851b-2213d4b692c7)
-
-## Diagrama de Classe:
-![LBDAvaliacao diagrama de classe](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/fe07deb8-f626-4d1f-bd1c-26cdd3ce0d22)
-
-## Diagrama de Banco de Dados:
-![LBDSistemaAcademicoFaculdade](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/5a419e82-5273-490b-88c6-71c1cb8b206d)
-
