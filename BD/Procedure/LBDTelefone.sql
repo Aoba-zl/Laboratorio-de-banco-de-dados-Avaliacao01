@@ -19,28 +19,26 @@ AS
     END
     ELSE IF (@op = 'U')
     BEGIN
-        IF (EXISTS(SELECT * FROM telefone WHERE ra_aluno = @ra )) BEGIN
-            IF(@numero IS NOT NULL OR @num_velho IS NOT NULL) BEGIN
-                IF (@numero IS NOT NULL) BEGIN
-                    IF(@num_velho IS NOT NULL) BEGIN
-                        IF (NOT EXISTS(SELECT * FROM telefone WHERE numero = @numero AND ra_aluno = @ra  )) BEGIN
-                            PRINT 'update'
-                            UPDATE telefone 
-                            SET numero = @numero
-                            WHERE ra_aluno = @ra  AND numero = @num_velho
-                            SET @saida = 'atualizado'
-                        END ELSE BEGIN
-                            SET @saida = 'erro'
-                        END
+        IF(@numero IS NOT NULL OR @num_velho IS NOT NULL) BEGIN
+            IF (@numero IS NOT NULL) BEGIN
+                IF(@num_velho IS NOT NULL) BEGIN
+                    IF (NOT EXISTS(SELECT * FROM telefone WHERE numero = @numero AND ra_aluno = @ra  )) BEGIN
+                        PRINT 'update'
+                        UPDATE telefone 
+                        SET numero = @numero
+                        WHERE ra_aluno = @ra  AND numero = @num_velho
+                        SET @saida = 'atualizado'
                     END ELSE BEGIN
-                        EXEC sp_telefone_aluno 'I', @ra, @numero, NULL,@saida OUTPUT
+                        SET @saida = 'erro'
                     END
                 END ELSE BEGIN
-                    EXEC sp_telefone_aluno 'D', @ra, NULL, @num_velho,@saida OUTPUT
+                    EXEC sp_telefone_aluno 'I', @ra, @numero, NULL,@saida OUTPUT
                 END
             END ELSE BEGIN
-                SET @saida = 'erro'
+                EXEC sp_telefone_aluno 'D', @ra, NULL, @num_velho,@saida OUTPUT
             END
+        END ELSE BEGIN
+            SET @saida = 'erro'
         END
     END
     ELSE IF (@op = 'D')
