@@ -11,7 +11,6 @@
 - [x] Banco de Dados
 - procedure
     - [x] CPF (Matheus)
-    - [ ] Horário (Matheus)
     - [x] Idade igual ou superior 16
     - [x] Data limite de graduação
     - [x] RA ano ingresso + semestre ingresso + 4 numero aleatorio (David)
@@ -19,19 +18,19 @@
     - [x] Matricula (David)
 - [x] Model
 - Controller
-    - [ ] AlunoController (David)
-    - [ ] DisciplinaController (Matheus)
-    - [ ] CursoController (Matheus)
+    - [x] AlunoController (David)
+    - [x] DisciplinaController (Matheus)
+    - [x] CursoController (Matheus)
 - Servlet
-    - [ ] AlunoServlet (David)
-    - [ ] DisciplinaServlet (Matheus)
-    - [ ] CursoServlet (Matheus)
+    - [x] AlunoServlet (David)
+    - [x] DisciplinaServlet (Matheus)
+    - [x] CursoServlet (Matheus)
 - Persistence
-    - [ ] AlunoDao (Crud completo) (David)
-    - [ ] DisciplinaDao (consulta e listagem) (Matheus)
-    - [ ] CursoDao (consulta e listagem) (Matheus)
+    - [x] AlunoDao (Crud completo) (David)
+    - [x] DisciplinaDao (consulta e listagem) (Matheus)
+    - [x] CursoDao (consulta e listagem) (Matheus)
 - WebHtml
-    - [ ] Index
-    - [ ] Aluno
-    - [ ] Curso
-    - [ ] Disciplina (Aluno->Disciplina[grade])
+    - [x] Index
+    - [x] Aluno
+    - [x] Curso
+    - [x] Disciplina (Aluno->Disciplina[grade])
