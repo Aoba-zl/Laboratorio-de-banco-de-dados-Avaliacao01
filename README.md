@@ -34,3 +34,15 @@
     - [x] Aluno
     - [x] Curso
     - [x] Disciplina (Aluno->Disciplina[grade])
+
+---
+
+## Diagrama Caso de Uso:
+![Caso de uso](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/7b7ce8da-e40f-4503-851b-2213d4b692c7)
+
+## Diagrama de Classe:
+![LBDAvaliacao diagrama de classe](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/fe07deb8-f626-4d1f-bd1c-26cdd3ce0d22)
+
+## Diagrama de Banco de Dados:
+![LBDSistemaAcademicoFaculdade](https://github.com/Aoba-zl/Laboratorio-de-banco-de-dados-Avaliacao01/assets/99504777/5a419e82-5273-490b-88c6-71c1cb8b206d)
+
